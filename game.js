@@ -487,6 +487,7 @@ class Attack3Component extends Component {
                     ctx.fillRect(this.margin + this.laserX * this.count, this.margin, this.laserX, this.laserY)
                     if (this.timer % 2 == 0) {
                         this.count++
+                        this.attacks = []
                     }
                     var attack = {
                         x: this.margin + this.laserX * this.count,
@@ -508,7 +509,6 @@ class Attack3Component extends Component {
                 ctx.fillRect(this.margin / 2 + 5, this.margin / 2 + this.size / 2 - (this.warningY / 2 + 11) + 40, 5, 5)
                 ctx.fillRect(this.margin / 2 + 5, this.margin / 2 + this.size / 2 - (this.warningY / 2 + 25) + 40, 5, 10)
                 this.count = 0
-                this.attacks = []
             }
 
             // Orange Attack
@@ -518,6 +518,7 @@ class Attack3Component extends Component {
                     ctx.fillRect(this.margin + this.laserX * this.count, this.margin, this.laserX, this.laserY)
                     if (this.timer % 2 == 0) {
                         this.count++
+                        this.attacks = []
                     }
                     var attack = {
                         x: this.margin + this.laserX * this.count,
@@ -651,13 +652,13 @@ class PlayerComponent extends Component {
             var distY = Math.abs(this.transform.y - attack.y - attack.height / 2);
 
             if (distX <= (attack.width / 2) && !this.iFrame && distY <= (attack.height / 2)) {
-                if (attacks3Component.blue && !(keysDown["ArrowRight"] || keysDown["ArrowLeft" || keysDown["ArrowUp"] || keysDown["ArrowDown"])) {
-                livesComponent.lives--
-                this.iFrame = true
-                this.hitInterval = attacks3Component.interval + 1
+                if (attacks3Component.blue && (keysDown["ArrowRight"] || keysDown["ArrowLeft"] || keysDown["ArrowUp"] || keysDown["ArrowDown"])) {
+                    livesComponent.lives--
+                    this.iFrame = true
+                    this.hitInterval = attacks3Component.interval + 1
                 }
 
-                if (!attacks3Component.blue && (keysDown["ArrowRight"] || keysDown["ArrowLeft" || keysDown["ArrowUp"] || keysDown["ArrowDown"])){
+                if (!attacks3Component.blue && !(keysDown["ArrowRight"] || keysDown["ArrowLeft"] || keysDown["ArrowUp"] || keysDown["ArrowDown"])) {
                     livesComponent.lives--
                     this.iFrame = true
                     this.hitInterval = attacks3Component.interval + 1
@@ -711,7 +712,7 @@ class AttacksController extends Component {
         })
 
         if (this.attacksSequence.length == 0) {
-            this.empty = true;
+            SceneManager.changeScene(4)
         }
     }
 }
@@ -773,8 +774,32 @@ class DeadScene extends Scene {
     }
 }
 
+class EndController extends Component {
+    update() {
+        if (keysDown[" "]) {
+            SceneManager.changeScene(0)
+        }
+    }
+}
+
+class EndScene extends Scene {
+    constructor() {
+        super("Black")
+    }
+    start() {
+        let livesGameObject = GameObject.getObjectByName("LivesComponent");
+        let livesComponent = livesGameObject.getComponent("LivesComponent");
+
+        this.addGameObject(new GameObject().addComponent(new EndController()))
+        this.addGameObject(new GameObject().addComponent(new Text("Congratulations! You have beat the game", "white")), new Vector2(100, 100))
+        this.addGameObject(new GameObject().addComponent(new Text("Press spacebar to play again", "white")), new Vector2(100, 150))
+        this.addGameObject(new GameObject().addComponent(new Text("You lived with: " + livesComponent.lives + "lives!" , "white")), new Vector2(100, 200))
+    }
+}
+
 let startScene = new StartScene()
 let mainScene = new MainScene()
 let deadScene = new DeadScene()
+let endScene = new EndScene()
 
-window.allScenes = [startScene, mainScene, deadScene]
+window.allScenes = [startScene, mainScene, deadScene, endScene]
