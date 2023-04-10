@@ -459,7 +459,7 @@ class Attack3Component extends Component {
         this.interval = 0;
         this.count = 0;
         this.turn = true;
-        this.blue = true;
+        this.blue;
     }
     update() {
         this.timer++
@@ -474,21 +474,24 @@ class Attack3Component extends Component {
             if (this.interval == 3) {
                 ctx.strokeStyle = "blue"
                 ctx.fillStyle = "blue"
+                this.blue = true
                 ctx.strokeRect(this.margin / 2 - 5, this.margin / 2 + this.size / 2, this.warningX, this.warningY)
                 ctx.fillRect(this.margin / 2 + 5, this.margin / 2 + this.size / 2 - (this.warningY / 2 + 11) + 40, 5, 5)
                 ctx.fillRect(this.margin / 2 + 5, this.margin / 2 + this.size / 2 - (this.warningY / 2 + 25) + 40, 5, 10)
             }
 
             // Blue Attack
-            if (this.interval == 4) {
+            if (this.interval == 4 || this.interval == 5) {
                 if (this.count <= 9) {
                     ctx.fillStyle = "blue"
                     ctx.fillRect(this.margin + this.laserX * this.count, this.margin, this.laserX, this.laserY)
-                    this.count++
+                    if (this.timer % 2 == 0) {
+                        this.count++
+                    }
                     var attack = {
-                        x: this.margin + 50,
+                        x: this.margin + this.laserX * this.count,
                         y: this.margin,
-                        width: this.laserX * 2,
+                        width: this.laserX,
                         height: this.laserY
                     }
                     this.attacks.push(attack)
@@ -497,9 +500,10 @@ class Attack3Component extends Component {
 
             // Phase 2 Attack
             // Warning
-            if (this.interval == 5) {
+            if (this.interval == 6) {
                 ctx.strokeStyle = "orange"
                 ctx.fillStyle = "orange"
+                this.blue = false
                 ctx.strokeRect(this.margin / 2 - 5, this.margin / 2 + this.size / 2, this.warningX, this.warningY)
                 ctx.fillRect(this.margin / 2 + 5, this.margin / 2 + this.size / 2 - (this.warningY / 2 + 11) + 40, 5, 5)
                 ctx.fillRect(this.margin / 2 + 5, this.margin / 2 + this.size / 2 - (this.warningY / 2 + 25) + 40, 5, 10)
@@ -507,24 +511,25 @@ class Attack3Component extends Component {
                 this.attacks = []
             }
 
-            // Blue Attack
-            if (this.interval == 6) {
+            // Orange Attack
+            if (this.interval == 7 || this.interval == 8) {
                 if (this.count <= 9) {
-                    this.blue = false
                     ctx.fillStyle = "orange"
                     ctx.fillRect(this.margin + this.laserX * this.count, this.margin, this.laserX, this.laserY)
-                    this.count++
+                    if (this.timer % 2 == 0) {
+                        this.count++
+                    }
                     var attack = {
-                        x: this.margin + 50,
+                        x: this.margin + this.laserX * this.count,
                         y: this.margin,
-                        width: this.laserX * 2,
+                        width: this.laserX,
                         height: this.laserY
                     }
                     this.attacks.push(attack)
                 }
             }
 
-            if (this.interval == 7) {
+            if (this.interval == 9) {
                 this.interval = 0
                 this.count = 0
                 let playerGameObject = GameObject.getObjectByName("PlayerComponent");
@@ -608,11 +613,11 @@ class PlayerComponent extends Component {
             }
         })
         */
-        
+        /*
         // Hit Detection for Attack2Component -------------------------------------------------
         let attacks2GameObject = GameObject.getObjectByName("Attack2Component");
         let attacks2Component = attacks2GameObject.getComponent("Attack2Component");
-    
+
         // Handle iFrames
         if (this.iFrame && this.hitInterval < attacks2Component.interval) {
             this.iFrame = false
@@ -629,7 +634,7 @@ class PlayerComponent extends Component {
                 this.hitInterval = attacks2Component.interval + 1
             }
         })
-        
+        */
         /*
         // Hit Detection for Attack3Component -------------------------------------------------
         let attacks3GameObject = GameObject.getObjectByName("Attack3Component");
@@ -646,17 +651,17 @@ class PlayerComponent extends Component {
             var distY = Math.abs(this.transform.y - attack.y - attack.height / 2);
 
             if (distX <= (attack.width / 2) && !this.iFrame && distY <= (attack.height / 2)) {
-                //if (attack3Component.blue && keysDown.length == 0) {
+                if (attacks3Component.blue && !(keysDown["ArrowRight"] || keysDown["ArrowLeft" || keysDown["ArrowUp"] || keysDown["ArrowDown"])) {
+                livesComponent.lives--
+                this.iFrame = true
+                this.hitInterval = attacks3Component.interval + 1
+                }
+
+                if (!attacks3Component.blue && (keysDown["ArrowRight"] || keysDown["ArrowLeft" || keysDown["ArrowUp"] || keysDown["ArrowDown"])){
                     livesComponent.lives--
                     this.iFrame = true
                     this.hitInterval = attacks3Component.interval + 1
-                //}
-
-                // if (!attack3Component.blue && !(keysDown.length == 0)) {
-                //     livesComponent.lives--
-                //     this.iFrame = true
-                //     this.hitInterval = attacks3Component.interval + 1
-                // }
+                }
             }
         })
         */
@@ -670,6 +675,7 @@ class AttacksController extends Component {
         this.randomAttack = undefined;
         this.empty = true;
     }
+
     update() {
         //Attack Sequence
         let attack1GameObject = GameObject.getObjectByName("Attack1Component");
@@ -716,11 +722,11 @@ class MainScene extends Scene {
     }
     start() {
         // Attacks Code
-        //this.addGameObject(new GameObject("Attack1Component").addComponent(new Attack1Component()))
+        this.addGameObject(new GameObject("Attack1Component").addComponent(new Attack1Component()))
         this.addGameObject(new GameObject("Attack2Component").addComponent(new Attack2Component()))
-        //this.addGameObject(new GameObject("Attack3Component").addComponent(new Attack3Component()))
+        this.addGameObject(new GameObject("Attack3Component").addComponent(new Attack3Component()))
 
-        //this.addGameObject(new GameObject("AttacksController").addComponent(new AttacksController()))
+        this.addGameObject(new GameObject("AttacksController").addComponent(new AttacksController()))
 
         // Player code
         let playerComponent = new GameObject("PlayerComponent")
