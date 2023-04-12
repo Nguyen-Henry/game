@@ -97,6 +97,7 @@ class Attack1Component extends Component {
         this.timer = 0
         this.interval = 0
         this.attacks = []
+        this.turn = false
     }
     update() {
         this.timer++
@@ -105,154 +106,156 @@ class Attack1Component extends Component {
         }
     }
     draw(ctx) {
-        // Phase 1 Attack
-        // Warning Attack
-        if (this.interval == 3) {
-            ctx.strokeStyle = "black"
-            ctx.fillStyle = "black"
-            // Horizontal lasers
-            for (let i = 0; i < this.numLasers; i++) {
-                ctx.strokeRect(0, this.margin + (i * (this.size - this.margin)), this.warningX, this.warningY)
-                ctx.fillRect(this.warningX / 2 - 2, this.margin + 30 + (i * (this.size - this.margin)), 5, 5)
-                ctx.fillRect(this.warningX / 2 - 2, this.margin + 15 + (i * (this.size - this.margin)), 5, 10)
-            }
-
-            // Vertical Lasers
-            for (let i = 0; i < this.numLasers; i++) {
-                ctx.strokeRect(this.margin + (i * (this.size - this.margin)), this.margin + this.size, this.warningX, this.warningY)
-                ctx.fillRect(this.warningX / 2 - 2 + this.margin + (i * (this.size - this.margin)), this.margin + 30 + this.size, 5, 5)
-                ctx.fillRect(this.warningX / 2 - 2 + this.margin + (i * (this.size - this.margin)), this.margin + 15 + this.size, 5, 10)
-            }
-        }
-
-        // Actual Attack
-        ctx.fillStyle = "red"
-        if (this.interval == 4) {
-            // Horizontal Lasers
-            for (let i = 0; i < this.numLasers; i++) {
-                ctx.fillRect(this.margin, this.margin + (i * (this.size - this.margin)), this.laserY, this.laserX)
-                var attack = {
-                    x: this.margin,
-                    y: this.margin + (i * (this.size - this.margin)),
-                    width: this.laserY,
-                    height: this.laserX
+        if (this.turn) {
+            // Phase 1 Attack
+            // Warning Attack
+            if (this.interval == 3) {
+                ctx.strokeStyle = "black"
+                ctx.fillStyle = "black"
+                // Horizontal lasers
+                for (let i = 0; i < this.numLasers; i++) {
+                    ctx.strokeRect(0, this.margin + (i * (this.size - this.margin)), this.warningX, this.warningY)
+                    ctx.fillRect(this.warningX / 2 - 2, this.margin + 30 + (i * (this.size - this.margin)), 5, 5)
+                    ctx.fillRect(this.warningX / 2 - 2, this.margin + 15 + (i * (this.size - this.margin)), 5, 10)
                 }
-                this.attacks.push(attack)
-            }
 
-            //Vertical Lasers
-            for (let i = 0; i < this.numLasers; i++) {
-                ctx.fillRect(this.margin + (i * (this.size - this.margin)), this.margin, this.laserX, this.laserY)
-                var attack = {
-                    x: this.margin + (i * (this.size - this.margin)),
-                    y: this.margin,
-                    width: this.laserX,
-                    height: this.laserY
+                // Vertical Lasers
+                for (let i = 0; i < this.numLasers; i++) {
+                    ctx.strokeRect(this.margin + (i * (this.size - this.margin)), this.margin + this.size, this.warningX, this.warningY)
+                    ctx.fillRect(this.warningX / 2 - 2 + this.margin + (i * (this.size - this.margin)), this.margin + 30 + this.size, 5, 5)
+                    ctx.fillRect(this.warningX / 2 - 2 + this.margin + (i * (this.size - this.margin)), this.margin + 15 + this.size, 5, 10)
                 }
-                this.attacks.push(attack)
             }
-        }
 
-        // Phase 2 Attack
-        // Warning Attack
-        if (this.interval == 5) {
-            ctx.strokeStyle = "black"
-            ctx.fillStyle = "black"
+            // Actual Attack
+            ctx.fillStyle = "red"
+            if (this.interval == 4) {
+                // Horizontal Lasers
+                for (let i = 0; i < this.numLasers; i++) {
+                    ctx.fillRect(this.margin, this.margin + (i * (this.size - this.margin)), this.laserY, this.laserX)
+                    var attack = {
+                        x: this.margin,
+                        y: this.margin + (i * (this.size - this.margin)),
+                        width: this.laserY,
+                        height: this.laserX
+                    }
+                    this.attacks.push(attack)
+                }
 
-            // Horizontal Lasers
-            ctx.strokeRect(0, this.size / 2 + this.margin / 2, this.warningX, this.warningY)
-            ctx.fillRect(this.warningX / 2 - 2, 30 + this.size / 2 + this.margin / 2, 5, 5)
-            ctx.fillRect(this.warningX / 2 - 2, 15 + this.size / 2 + this.margin / 2, 5, 10)
-
-            // Vertical lasers
-            ctx.strokeRect(this.size / 2 + this.margin / 2, this.margin + this.size, this.warningX, this.warningY)
-            ctx.fillRect(this.warningX / 2 - 2 + this.size / 2 + this.margin / 2, 30 + this.margin + this.size, 5, 5)
-            ctx.fillRect(this.warningX / 2 - 2 + this.size / 2 + this.margin / 2, 15 + this.margin + this.size, 5, 10)
-            this.attacks = []
-        }
-
-        // Actual Attack
-        ctx.fillStyle = "red"
-        if (this.interval == 6) {
-            // Horizontal Lasers
-            ctx.fillRect(this.margin, this.size / 2 + this.margin / 2, this.laserY, this.laserX)
-            var attack = {
-                x: this.margin,
-                y: this.size / 2 + this.margin / 2,
-                width: this.laserY,
-                height: this.laserX
+                //Vertical Lasers
+                for (let i = 0; i < this.numLasers; i++) {
+                    ctx.fillRect(this.margin + (i * (this.size - this.margin)), this.margin, this.laserX, this.laserY)
+                    var attack = {
+                        x: this.margin + (i * (this.size - this.margin)),
+                        y: this.margin,
+                        width: this.laserX,
+                        height: this.laserY
+                    }
+                    this.attacks.push(attack)
+                }
             }
-            this.attacks.push(attack)
 
-            //Vertical Lasers
-            ctx.fillRect(this.size / 2 + this.margin / 2, this.margin, this.laserX, this.laserY)
-            var attack = {
-                x: this.size / 2 + this.margin / 2,
-                y: this.margin,
-                width: this.laserX,
-                height: this.laserY
-            }
-            this.attacks.push(attack)
-        }
+            // Phase 2 Attack
+            // Warning Attack
+            if (this.interval == 5) {
+                ctx.strokeStyle = "black"
+                ctx.fillStyle = "black"
 
-        // Phase 3 Attack
-        // Warning Attack
-        if (this.interval == 7) {
-            ctx.strokeStyle = "black"
-            ctx.fillStyle = "black"
-
-            // Horizontal Lasers
-            for (let i = 0; i < this.numLasers; i++) {
-                ctx.strokeRect(0, this.margin * 2 + 100 * i, this.warningX, this.warningY)
-                ctx.fillRect(this.warningX / 2 - 2, 30 + this.margin * 2 + (100 * i), 5, 5)
-                ctx.fillRect(this.warningX / 2 - 2, 15 + this.margin * 2 + (100 * i), 5, 10)
+                // Horizontal Lasers
+                ctx.strokeRect(0, this.size / 2 + this.margin / 2, this.warningX, this.warningY)
+                ctx.fillRect(this.warningX / 2 - 2, 30 + this.size / 2 + this.margin / 2, 5, 5)
+                ctx.fillRect(this.warningX / 2 - 2, 15 + this.size / 2 + this.margin / 2, 5, 10)
 
                 // Vertical lasers
-                ctx.strokeRect(this.margin * 2 + 100 * i, this.margin + this.size, this.warningX, this.warningY)
-                ctx.fillRect(this.warningX / 2 - 2 + this.margin * 2 + 100 * i, 30 + this.margin + this.size, 5, 5)
-                ctx.fillRect(this.warningX / 2 - 2 + this.margin * 2 + 100 * i, 15 + this.margin + this.size, 5, 10)
+                ctx.strokeRect(this.size / 2 + this.margin / 2, this.margin + this.size, this.warningX, this.warningY)
+                ctx.fillRect(this.warningX / 2 - 2 + this.size / 2 + this.margin / 2, 30 + this.margin + this.size, 5, 5)
+                ctx.fillRect(this.warningX / 2 - 2 + this.size / 2 + this.margin / 2, 15 + this.margin + this.size, 5, 10)
+                this.attacks = []
             }
-            this.attacks = []
-        }
 
-        // Actual Attack
-        ctx.fillStyle = "red"
-        if (this.interval == 8) {
-            // Horizontal Lasers
-            for (let i = 0; i < this.numLasers; i++) {
-                ctx.fillRect(this.margin, this.margin * 2 + 100 * i, this.laserY, this.laserX)
+            // Actual Attack
+            ctx.fillStyle = "red"
+            if (this.interval == 6) {
+                // Horizontal Lasers
+                ctx.fillRect(this.margin, this.size / 2 + this.margin / 2, this.laserY, this.laserX)
                 var attack = {
                     x: this.margin,
-                    y: this.margin * 2 + 100 * i,
+                    y: this.size / 2 + this.margin / 2,
                     width: this.laserY,
                     height: this.laserX
                 }
                 this.attacks.push(attack)
-            }
 
-            //Vertical Lasers
-            for (let i = 0; i < this.numLasers; i++) {
-                ctx.fillRect(this.margin * 2 + 100 * i, this.margin, this.laserX, this.laserY)
+                //Vertical Lasers
+                ctx.fillRect(this.size / 2 + this.margin / 2, this.margin, this.laserX, this.laserY)
                 var attack = {
-                    x: this.margin * 2 + 100 * i,
+                    x: this.size / 2 + this.margin / 2,
                     y: this.margin,
                     width: this.laserX,
                     height: this.laserY
                 }
                 this.attacks.push(attack)
             }
-        }
 
-        if (this.interval == 9) {
-            this.interval = 0;
-            let playerGameObject = GameObject.getObjectByName("PlayerComponent");
-            let playerComponent = playerGameObject.getComponent("PlayerComponent");
-            playerComponent.hitInterval = 0
-            this.attacks = []
+            // Phase 3 Attack
+            // Warning Attack
+            if (this.interval == 7) {
+                ctx.strokeStyle = "black"
+                ctx.fillStyle = "black"
 
-            let attackControllerGameObject = GameObject.getObjectByName("AttackController");
-            let attackControllerComponent = attackControllerGameObject.getComponent("AttackController");
-            attackControllerComponent.randomattack = undefined
+                // Horizontal Lasers
+                for (let i = 0; i < this.numLasers; i++) {
+                    ctx.strokeRect(0, this.margin * 2 + 100 * i, this.warningX, this.warningY)
+                    ctx.fillRect(this.warningX / 2 - 2, 30 + this.margin * 2 + (100 * i), 5, 5)
+                    ctx.fillRect(this.warningX / 2 - 2, 15 + this.margin * 2 + (100 * i), 5, 10)
+
+                    // Vertical lasers
+                    ctx.strokeRect(this.margin * 2 + 100 * i, this.margin + this.size, this.warningX, this.warningY)
+                    ctx.fillRect(this.warningX / 2 - 2 + this.margin * 2 + 100 * i, 30 + this.margin + this.size, 5, 5)
+                    ctx.fillRect(this.warningX / 2 - 2 + this.margin * 2 + 100 * i, 15 + this.margin + this.size, 5, 10)
+                }
+                this.attacks = []
+            }
+
+            // Actual Attack
+            ctx.fillStyle = "red"
+            if (this.interval == 8) {
+                // Horizontal Lasers
+                for (let i = 0; i < this.numLasers; i++) {
+                    ctx.fillRect(this.margin, this.margin * 2 + 100 * i, this.laserY, this.laserX)
+                    var attack = {
+                        x: this.margin,
+                        y: this.margin * 2 + 100 * i,
+                        width: this.laserY,
+                        height: this.laserX
+                    }
+                    this.attacks.push(attack)
+                }
+
+                //Vertical Lasers
+                for (let i = 0; i < this.numLasers; i++) {
+                    ctx.fillRect(this.margin * 2 + 100 * i, this.margin, this.laserX, this.laserY)
+                    var attack = {
+                        x: this.margin * 2 + 100 * i,
+                        y: this.margin,
+                        width: this.laserX,
+                        height: this.laserY
+                    }
+                    this.attacks.push(attack)
+                }
+            }
+
+            if (this.interval == 9) {
+                this.interval = 0;
+                let playerGameObject = GameObject.getObjectByName("PlayerComponent");
+                let playerComponent = playerGameObject.getComponent("PlayerComponent");
+                playerComponent.hitInterval = 0
+                this.attacks = []
+
+                let attackControllerGameObject = GameObject.getObjectByName("AttacksController");
+                let attackControllerComponent = attackControllerGameObject.getComponent("AttacksController");
+                attackControllerComponent.randomAttack = undefined
+            }
         }
     }
 }
@@ -270,6 +273,7 @@ class Attack2Component extends Component {
         this.laserY = this.size
         this.timer = 0
         this.interval = 0;
+        this.turn = false;
     }
     update() {
         this.timer++
@@ -278,169 +282,171 @@ class Attack2Component extends Component {
         }
     }
     draw(ctx) {
-        // Phase 1 Attack
-        // Warning Attack
-        if (this.interval == 3) {
-            ctx.strokeStyle = "black"
-            ctx.fillStyle = "black"
-            for (let i = 0; i < this.numLasers; i++) {
-                ctx.strokeRect(this.margin + 50 * i, this.margin + this.size - this.warningY, this.warningX, this.warningY)
-                ctx.fillRect(this.margin + 50 * i + 10, this.margin + this.size - (this.warningY / 2 - 4), 5, 5)
-                ctx.fillRect(this.margin + 50 * i + 10, this.margin + this.size - (this.warningY / 2 + 10), 5, 10)
+        if (this.turn) {
+            // Phase 1 Attack
+            // Warning Attack
+            if (this.interval == 3) {
+                ctx.strokeStyle = "black"
+                ctx.fillStyle = "black"
+                for (let i = 0; i < this.numLasers; i++) {
+                    ctx.strokeRect(this.margin + 50 * i, this.margin + this.size - this.warningY, this.warningX, this.warningY)
+                    ctx.fillRect(this.margin + 50 * i + 10, this.margin + this.size - (this.warningY / 2 - 4), 5, 5)
+                    ctx.fillRect(this.margin + 50 * i + 10, this.margin + this.size - (this.warningY / 2 + 10), 5, 10)
+                }
             }
-        }
 
-        // Actual Attack
-        ctx.fillStyle = "red"
-        if (this.interval == 4) {
-            for (let i = 0; i < this.numLasers; i++) {
-                ctx.fillRect(this.margin + 50 * i, this.margin, this.laserX, this.laserY)
+            // Actual Attack
+            ctx.fillStyle = "red"
+            if (this.interval == 4) {
+                for (let i = 0; i < this.numLasers; i++) {
+                    ctx.fillRect(this.margin + 50 * i, this.margin, this.laserX, this.laserY)
+                    var attack = {
+                        x: this.margin + 50 * i,
+                        y: this.margin,
+                        width: this.laserX,
+                        height: this.laserY
+                    }
+                    this.attacks.push(attack)
+                }
+            }
+
+            // Phase 2 Attack
+            // Warning Attack
+            if (this.interval == 5) {
+                ctx.strokeStyle = "black"
+                ctx.fillStyle = "black"
+                for (let i = 0; i < this.numLasers; i++) {
+                    ctx.strokeRect(this.margin + 50 * i + 25, this.margin + this.size - this.warningY, this.warningX, this.warningY)
+                    ctx.fillRect(this.margin + 50 * i + 10 + 25, this.margin + this.size - (this.warningY / 2 - 4), 5, 5)
+                    ctx.fillRect(this.margin + 50 * i + 10 + 25, this.margin + this.size - (this.warningY / 2 + 10), 5, 10)
+                }
+                this.attacks = []
+            }
+
+            // Actual Attack
+            ctx.fillStyle = "red"
+            if (this.interval == 6) {
+                for (let i = 0; i < this.numLasers; i++) {
+                    ctx.fillRect(this.margin + 50 * i + 25, this.margin, this.laserX, this.laserY)
+                    var attack = {
+                        x: this.margin + 50 * i + 25,
+                        y: this.margin,
+                        width: this.laserX,
+                        height: this.laserY
+                    }
+                    this.attacks.push(attack)
+                }
+            }
+
+            // Phase 3 Attack
+            if (this.interval == 7) {
+                // Warning Attack
+                ctx.strokeStyle = "black"
+                ctx.fillStyle = "black"
+
+                ctx.strokeRect(this.margin, this.margin + this.size - this.warningY * 2, this.warningX * 2, this.warningY * 2)
+                ctx.fillRect(this.margin + 23, this.margin + this.size - (this.warningY / 2 + 11), 5, 5)
+                ctx.fillRect(this.margin + 23, this.margin + this.size - (this.warningY / 2 + 25), 5, 10)
+                this.attacks = []
+            }
+
+
+            // Actual Attack
+            if (this.interval == 8) {
+                ctx.fillStyle = "red"
+                ctx.fillRect(this.margin, this.margin, this.laserX * 2, this.laserY)
                 var attack = {
-                    x: this.margin + 50 * i,
+                    x: this.margin,
                     y: this.margin,
-                    width: this.laserX,
+                    width: this.laserX * 2,
                     height: this.laserY
                 }
                 this.attacks.push(attack)
             }
-        }
 
-        // Phase 2 Attack
-        // Warning Attack
-        if (this.interval == 5) {
-            ctx.strokeStyle = "black"
-            ctx.fillStyle = "black"
-            for (let i = 0; i < this.numLasers; i++) {
-                ctx.strokeRect(this.margin + 50 * i + 25, this.margin + this.size - this.warningY, this.warningX, this.warningY)
-                ctx.fillRect(this.margin + 50 * i + 10 + 25, this.margin + this.size - (this.warningY / 2 - 4), 5, 5)
-                ctx.fillRect(this.margin + 50 * i + 10 + 25, this.margin + this.size - (this.warningY / 2 + 10), 5, 10)
+            if (this.interval == 9) {
+                // Warning Attack
+                ctx.strokeStyle = "black"
+                ctx.fillStyle = "black"
+
+                ctx.strokeRect(this.margin + 50, this.margin + this.size - this.warningY * 2, this.warningX * 2, this.warningY * 2)
+                ctx.fillRect(this.margin + 73, this.margin + this.size - (this.warningY / 2 + 11), 5, 5)
+                ctx.fillRect(this.margin + 73, this.margin + this.size - (this.warningY / 2 + 25), 5, 10)
+                this.attacks = []
             }
-            this.attacks = []
-        }
 
-        // Actual Attack
-        ctx.fillStyle = "red"
-        if (this.interval == 6) {
-            for (let i = 0; i < this.numLasers; i++) {
-                ctx.fillRect(this.margin + 50 * i + 25, this.margin, this.laserX, this.laserY)
+            // Actual Attack
+            if (this.interval == 10) {
+                ctx.fillStyle = "red"
+                ctx.fillRect(this.margin + 50, this.margin, this.laserX * 2, this.laserY)
                 var attack = {
-                    x: this.margin + 50 * i + 25,
+                    x: this.margin + 50,
                     y: this.margin,
-                    width: this.laserX,
+                    width: this.laserX * 2,
                     height: this.laserY
                 }
                 this.attacks.push(attack)
             }
-        }
 
-        // Phase 3 Attack
-        if (this.interval == 7) {
-            // Warning Attack
-            ctx.strokeStyle = "black"
-            ctx.fillStyle = "black"
+            if (this.interval == 11) {
+                // Warning Attack
+                ctx.strokeStyle = "black"
+                ctx.fillStyle = "black"
 
-            ctx.strokeRect(this.margin, this.margin + this.size - this.warningY * 2, this.warningX * 2, this.warningY * 2)
-            ctx.fillRect(this.margin + 23, this.margin + this.size - (this.warningY / 2 + 11), 5, 5)
-            ctx.fillRect(this.margin + 23, this.margin + this.size - (this.warningY / 2 + 25), 5, 10)
-            this.attacks = []
-        }
-
-
-        // Actual Attack
-        if (this.interval == 8) {
-            ctx.fillStyle = "red"
-            ctx.fillRect(this.margin, this.margin, this.laserX * 2, this.laserY)
-            var attack = {
-                x: this.margin,
-                y: this.margin,
-                width: this.laserX * 2,
-                height: this.laserY
+                ctx.strokeRect(this.margin + 100, this.margin + this.size - this.warningY * 2, this.warningX * 2, this.warningY * 2)
+                ctx.fillRect(this.margin + 123, this.margin + this.size - (this.warningY / 2 + 11), 5, 5)
+                ctx.fillRect(this.margin + 123, this.margin + this.size - (this.warningY / 2 + 25), 5, 10)
+                this.attacks = []
             }
-            this.attacks.push(attack)
-        }
 
-        if (this.interval == 9) {
-            // Warning Attack
-            ctx.strokeStyle = "black"
-            ctx.fillStyle = "black"
-
-            ctx.strokeRect(this.margin + 50, this.margin + this.size - this.warningY * 2, this.warningX * 2, this.warningY * 2)
-            ctx.fillRect(this.margin + 73, this.margin + this.size - (this.warningY / 2 + 11), 5, 5)
-            ctx.fillRect(this.margin + 73, this.margin + this.size - (this.warningY / 2 + 25), 5, 10)
-            this.attacks = []
-        }
-
-        // Actual Attack
-        if (this.interval == 10) {
-            ctx.fillStyle = "red"
-            ctx.fillRect(this.margin + 50, this.margin, this.laserX * 2, this.laserY)
-            var attack = {
-                x: this.margin + 50,
-                y: this.margin,
-                width: this.laserX * 2,
-                height: this.laserY
+            // Actual Attack
+            if (this.interval == 12) {
+                ctx.fillStyle = "red"
+                ctx.fillRect(this.margin + 100, this.margin, this.laserX * 2, this.laserY)
+                var attack = {
+                    x: this.margin + 100,
+                    y: this.margin,
+                    width: this.laserX * 2,
+                    height: this.laserY
+                }
+                this.attacks.push(attack)
             }
-            this.attacks.push(attack)
-        }
 
-        if (this.interval == 11) {
-            // Warning Attack
-            ctx.strokeStyle = "black"
-            ctx.fillStyle = "black"
+            if (this.interval == 13) {
+                // Warning Attack
+                ctx.strokeStyle = "black"
+                ctx.fillStyle = "black"
 
-            ctx.strokeRect(this.margin + 100, this.margin + this.size - this.warningY * 2, this.warningX * 2, this.warningY * 2)
-            ctx.fillRect(this.margin + 123, this.margin + this.size - (this.warningY / 2 + 11), 5, 5)
-            ctx.fillRect(this.margin + 123, this.margin + this.size - (this.warningY / 2 + 25), 5, 10)
-            this.attacks = []
-        }
-
-        // Actual Attack
-        if (this.interval == 12) {
-            ctx.fillStyle = "red"
-            ctx.fillRect(this.margin + 100, this.margin, this.laserX * 2, this.laserY)
-            var attack = {
-                x: this.margin + 100,
-                y: this.margin,
-                width: this.laserX * 2,
-                height: this.laserY
+                ctx.strokeRect(this.margin + 150, this.margin + this.size - this.warningY * 2, this.warningX * 2, this.warningY * 2)
+                ctx.fillRect(this.margin + 173, this.margin + this.size - (this.warningY / 2 + 11), 5, 5)
+                ctx.fillRect(this.margin + 173, this.margin + this.size - (this.warningY / 2 + 25), 5, 10)
+                this.attacks = []
             }
-            this.attacks.push(attack)
-        }
 
-        if (this.interval == 13) {
-            // Warning Attack
-            ctx.strokeStyle = "black"
-            ctx.fillStyle = "black"
-
-            ctx.strokeRect(this.margin + 150, this.margin + this.size - this.warningY * 2, this.warningX * 2, this.warningY * 2)
-            ctx.fillRect(this.margin + 173, this.margin + this.size - (this.warningY / 2 + 11), 5, 5)
-            ctx.fillRect(this.margin + 173, this.margin + this.size - (this.warningY / 2 + 25), 5, 10)
-            this.attacks = []
-        }
-
-        // Actual Attack
-        if (this.interval == 14) {
-            ctx.fillStyle = "red"
-            ctx.fillRect(this.margin + 150, this.margin, this.laserX * 2, this.laserY)
-            var attack = {
-                x: this.margin + 150,
-                y: this.margin,
-                width: this.laserX * 2,
-                height: this.laserY
+            // Actual Attack
+            if (this.interval == 14) {
+                ctx.fillStyle = "red"
+                ctx.fillRect(this.margin + 150, this.margin, this.laserX * 2, this.laserY)
+                var attack = {
+                    x: this.margin + 150,
+                    y: this.margin,
+                    width: this.laserX * 2,
+                    height: this.laserY
+                }
+                this.attacks.push(attack)
             }
-            this.attacks.push(attack)
-        }
 
-        if (this.interval >= 15) {
-            this.interval = 0;
-            this.attacks = []
-            let playerGameObject = GameObject.getObjectByName("PlayerComponent");
-            let playerComponent = playerGameObject.getComponent("PlayerComponent");
-            playerComponent.hitInterval = 0
+            if (this.interval >= 15) {
+                this.interval = 0;
+                this.attacks = []
+                let playerGameObject = GameObject.getObjectByName("PlayerComponent");
+                let playerComponent = playerGameObject.getComponent("PlayerComponent");
+                playerComponent.hitInterval = 0
 
-            let attackControllerGameObject = GameObject.getObjectByName("AttackController");
-            let attackControllerComponent = attackControllerGameObject.getComponent("AttackController");
-            attackControllerComponent.randomattack = undefined
+                let attackControllerGameObject = GameObject.getObjectByName("AttacksController");
+                let attackControllerComponent = attackControllerGameObject.getComponent("AttacksController");
+                attackControllerComponent.randomAttack = undefined
+            }
         }
     }
 }
@@ -458,7 +464,7 @@ class Attack3Component extends Component {
         this.timer = 0;
         this.interval = 0;
         this.count = 0;
-        this.turn = true;
+        this.turn = false;
         this.blue;
     }
     update() {
@@ -537,9 +543,9 @@ class Attack3Component extends Component {
                 let playerComponent = playerGameObject.getComponent("PlayerComponent");
                 playerComponent.hitInterval = 0
                 this.attacks = []
-                let attackControllerGameObject = GameObject.getObjectByName("AttackController");
-                let attackControllerComponent = attackControllerGameObject.getComponent("AttackController");
-                attackControllerComponent.randomattack = undefined
+                let attackControllerGameObject = GameObject.getObjectByName("AttacksController");
+                let attackControllerComponent = attackControllerGameObject.getComponent("AttacksController");
+                attackControllerComponent.randomAttack = undefined
             }
         }
     }
@@ -698,8 +704,8 @@ class AttacksController extends Component {
         }
 
         if (this.randomAttack == undefined) {
-            let randomIndex = Math.floor(Math.random() * this.attacksSequence.length)
-            this.randomAttack = this.attacksSequence[randomIndex]
+           let randomIndex = Math.floor(Math.random() * this.attacksSequence.length)
+           this.randomAttack = this.attacksSequence[randomIndex]
         }
 
         this.attacksSequence.forEach(attack => {
@@ -793,7 +799,7 @@ class EndScene extends Scene {
         this.addGameObject(new GameObject().addComponent(new EndController()))
         this.addGameObject(new GameObject().addComponent(new Text("Congratulations! You have beat the game", "white")), new Vector2(100, 100))
         this.addGameObject(new GameObject().addComponent(new Text("Press spacebar to play again", "white")), new Vector2(100, 150))
-        this.addGameObject(new GameObject().addComponent(new Text("You lived with: " + livesComponent.lives + "lives!" , "white")), new Vector2(100, 200))
+        this.addGameObject(new GameObject().addComponent(new Text("You lived with: " + livesComponent.lives + "lives!", "white")), new Vector2(100, 200))
     }
 }
 
