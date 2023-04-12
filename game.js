@@ -100,9 +100,11 @@ class Attack1Component extends Component {
         this.turn = false
     }
     update() {
-        this.timer++
-        if (this.timer % 12 == 0) {
-            this.interval++
+        if (this.turn) {
+            this.timer++
+            if (this.timer % 12 == 0) {
+                this.interval++
+            }
         }
     }
     draw(ctx) {
@@ -255,6 +257,7 @@ class Attack1Component extends Component {
                 let attackControllerGameObject = GameObject.getObjectByName("AttacksController");
                 let attackControllerComponent = attackControllerGameObject.getComponent("AttacksController");
                 attackControllerComponent.randomAttack = undefined
+                this.turn = false
             }
         }
     }
@@ -276,9 +279,11 @@ class Attack2Component extends Component {
         this.turn = false;
     }
     update() {
-        this.timer++
-        if (this.timer % 12 == 0) {
-            this.interval++
+        if (this.turn) {
+            this.timer++
+            if (this.timer % 12 == 0) {
+                this.interval++
+            }
         }
     }
     draw(ctx) {
@@ -446,6 +451,7 @@ class Attack2Component extends Component {
                 let attackControllerGameObject = GameObject.getObjectByName("AttacksController");
                 let attackControllerComponent = attackControllerGameObject.getComponent("AttacksController");
                 attackControllerComponent.randomAttack = undefined
+                this.turn = false
             }
         }
     }
@@ -468,9 +474,11 @@ class Attack3Component extends Component {
         this.blue;
     }
     update() {
-        this.timer++
-        if (this.timer % 12 == 0) {
-            this.interval++;
+        if (this.turn) {
+            this.timer++
+            if (this.timer % 12 == 0) {
+                this.interval++;
+            }
         }
     }
     draw(ctx) {
@@ -546,6 +554,7 @@ class Attack3Component extends Component {
                 let attackControllerGameObject = GameObject.getObjectByName("AttacksController");
                 let attackControllerComponent = attackControllerGameObject.getComponent("AttacksController");
                 attackControllerComponent.randomAttack = undefined
+                this.turn = false
             }
         }
     }
@@ -595,8 +604,8 @@ class PlayerComponent extends Component {
         }
 
         // Lives Component
-        let livesGameObject = GameObject.getObjectByName("LivesGameObject");
-        let livesComponent = livesGameObject.getComponent("LivesComponent");
+        let livesGameObject = GameObject.getObjectByName("LivesGameObject")
+        let livesComponent = livesGameObject.getComponent("LivesComponent")
 
         /*
         // Hit Detection for Attack1Component -------------------------------------------------
@@ -704,21 +713,21 @@ class AttacksController extends Component {
         }
 
         if (this.randomAttack == undefined) {
-           let randomIndex = Math.floor(Math.random() * this.attacksSequence.length)
-           this.randomAttack = this.attacksSequence[randomIndex]
+            let randomIndex = Math.floor(Math.random() * this.attacksSequence.length)
+            this.randomAttack = this.attacksSequence[randomIndex]
         }
+        this.empty = false
 
         this.attacksSequence.forEach(attack => {
             if (attack == this.randomAttack) {
-                this.empty = false
                 attack.turn = true
                 let index = this.attacksSequence.indexOf(this.randomAttack)
                 this.attacksSequence.splice(index, 1)
             }
         })
 
-        if (this.attacksSequence.length == 0) {
-            SceneManager.changeScene(4)
+        if (this.attacksSequence.length == 0 && this.randomAttack == undefined) {
+            SceneManager.changeScene(3)
         }
     }
 }
@@ -793,13 +802,13 @@ class EndScene extends Scene {
         super("Black")
     }
     start() {
-        let livesGameObject = GameObject.getObjectByName("LivesComponent");
-        let livesComponent = livesGameObject.getComponent("LivesComponent");
+        // let livesGameObject = GameObject.getObjectByName("LivesGameObject")
+        // let livesComponent = livesGameObject.getComponent("LivesComponent")
 
         this.addGameObject(new GameObject().addComponent(new EndController()))
         this.addGameObject(new GameObject().addComponent(new Text("Congratulations! You have beat the game", "white")), new Vector2(100, 100))
-        this.addGameObject(new GameObject().addComponent(new Text("Press spacebar to play again", "white")), new Vector2(100, 150))
-        this.addGameObject(new GameObject().addComponent(new Text("You lived with: " + livesComponent.lives + "lives!", "white")), new Vector2(100, 200))
+        this.addGameObject(new GameObject().addComponent(new Text("Press spacebar to go back to the start menu", "white")), new Vector2(100, 150))
+        // this.addGameObject(new GameObject().addComponent(new Text("You lived with: " + livesComponent.lives + "lives!", "white")), new Vector2(100, 200))
     }
 }
 
