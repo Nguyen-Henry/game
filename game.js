@@ -555,6 +555,7 @@ class Attack3Component extends Component {
                 let playerComponent = playerGameObject.getComponent("PlayerComponent");
                 playerComponent.hitInterval = 0
                 this.attacks = []
+
                 let attackControllerGameObject = GameObject.getObjectByName("AttacksController");
                 let attackControllerComponent = attackControllerGameObject.getComponent("AttacksController");
                 attackControllerComponent.randomAttack = undefined
@@ -649,10 +650,10 @@ class Attack5Component extends Component {
         this.margin = 50
         this.size = 200
         this.numLasers = 2
-        this.warningX = 75
-        this.warningY = 75
-        this.laserX = 75
-        this.laserY = 75
+        this.warningX = 50
+        this.warningY = 50
+        this.laserX = 50
+        this.laserY = 50
         this.timer = 0
         this.interval = 0
         this.attacks = []
@@ -660,64 +661,141 @@ class Attack5Component extends Component {
         this.randomx1 = 0
         this.randomx2 = 0
         this.randomx3 = 0
+        this.randomx4 = 0
+        this.randomx5 = 0
         this.randomy1 = 0
         this.randomy2 = 0
         this.randomy3 = 0
+        this.randomy4 = 0
+        this.randomy5 = 0
+        this.attackReset = true
     }
     update() {
         if (this.turn) {
             this.timer++
-            if (this.timer % 12 == 0) {
+            if (this.timer % 15 == 0) {
                 this.interval++
             }
         }
     }
     draw(ctx) {
         if (this.turn) {
-            if (this.interval >= 3 && this.interval <= 8) {
+            if (this.interval >= 3 && this.interval <= 12) {
                 // Warning Attack
                 if (this.interval % 2 == 1) {
                     ctx.strokeStyle = "black"
                     ctx.fillStyle = "black"
 
-                    if (this.random1 == 0) {
-                        this.random1 = Math.random() * (this.margin + this.size) / 2 + this.laserX
-                        this.random2 = Math.random() * (this.margin + this.size) / 2 + this.laserX
-                        this.random3 = Math.random() * (this.margin + this.size) / 2 + this.laserX
+                    if (this.attackReset) {
+                        this.randomx1 = Math.random() * (this.margin + this.size) / 2 + this.laserX / 2 + 50
+                        this.randomx2 = Math.random() * (this.margin + this.size) / 2 + this.laserX / 2 + 50
+                        this.randomx3 = Math.random() * (this.margin + this.size) / 2 + this.laserX / 2 + 50
+                        this.randomx4 = Math.random() * (this.margin + this.size) / 2 + this.laserX / 2 + 50
+                        this.randomx5 = Math.random() * (this.margin + this.size) / 2 + this.laserX / 2 + 50
+                        this.randomy1 = Math.random() * (this.margin + this.size) / 2 + this.laserY + 50
+                        this.randomy2 = Math.random() * (this.margin + this.size) / 2 + this.laserY + 50
+                        this.randomy3 = Math.random() * (this.margin + this.size) / 2 + this.laserY + 50
+                        this.randomy4 = Math.random() * (this.margin + this.size) / 2 + this.laserY + 50
+                        this.randomy5 = Math.random() * (this.margin + this.size) / 2 + this.laserY + 50
+                        this.attackReset = false
+                        this.attacks = []
                     }
 
-                    // for each loop maybe
-                    ctx.strokeRect(this.tempPlayerX, this.margin + this.size - this.warningY, this.warningX, this.warningY)
-                    ctx.fillRect(this.tempPlayerX + 10, this.margin + this.size - (this.warningY / 2 - 4), 5, 5)
-                    ctx.fillRect(this.tempPlayerX + 10, this.margin + this.size - (this.warningY / 2 + 10), 5, 10)
-                }
+                    // random 1
+                    ctx.strokeRect(this.randomx1, this.randomy1 - this.warningY, this.warningX, this.warningY)
+                    ctx.fillRect(this.randomx1 + 10, this.randomy1 - (this.warningY / 2 - 4), 5, 5)
+                    ctx.fillRect(this.randomx1 + 10, this.randomy1 - (this.warningY / 2 + 10), 5, 10)
 
+                    // random 2
+                    ctx.strokeRect(this.randomx2, this.randomy2 - this.warningY, this.warningX, this.warningY)
+                    ctx.fillRect(this.randomx2 + 10, this.randomy2 - (this.warningY / 2 - 4), 5, 5)
+                    ctx.fillRect(this.randomx2 + 10, this.randomy2 - (this.warningY / 2 + 10), 5, 10)
+
+                    // random 3
+                    ctx.strokeRect(this.randomx3, this.randomy3 - this.warningY, this.warningX, this.warningY)
+                    ctx.fillRect(this.randomx3 + 10, this.randomy3 - (this.warningY / 2 - 4), 5, 5)
+                    ctx.fillRect(this.randomx3 + 10, this.randomy3 - (this.warningY / 2 + 10), 5, 10)
+
+                    // random 4
+                    ctx.strokeRect(this.randomx4, this.randomy4 - this.warningY, this.warningX, this.warningY)
+                    ctx.fillRect(this.randomx4 + 10, this.randomy4 - (this.warningY / 2 - 4), 5, 5)
+                    ctx.fillRect(this.randomx4 + 10, this.randomy4 - (this.warningY / 2 + 10), 5, 10)
+
+                    // random 5
+                    ctx.strokeRect(this.randomx5, this.randomy5 - this.warningY, this.warningX, this.warningY)
+                    ctx.fillRect(this.randomx5 + 10, this.randomy5 - (this.warningY / 2 - 4), 5, 5)
+                    ctx.fillRect(this.randomx5 + 10, this.randomy5 - (this.warningY / 2 + 10), 5, 10)
+
+                }
                 else {
                     // Actual Attack
                     ctx.fillStyle = "red"
-                    ctx.fillRect(this.tempPlayerX, this.margin, this.laserX, this.laserY)
+
+                    // random 1
+                    ctx.fillRect(this.randomx1, this.randomy1 - this.warningY, this.laserX, this.laserY)
                     var attack = {
-                        x: this.tempPlayerX,
-                        y: this.margin,
+                        x: this.randomx1,
+                        y: this.randomy1 - this.warningY,
                         width: this.laserX,
                         height: this.laserY
                     }
                     this.attacks.push(attack)
-                    this.attackReset = true;
+
+                    // random 2
+                    ctx.fillRect(this.randomx2, this.randomy2 - this.warningY, this.laserX, this.laserY)
+                    var attack = {
+                        x: this.randomx2,
+                        y: this.randomy2 - this.warningY,
+                        width: this.laserX,
+                        height: this.laserY
+                    }
+                    this.attacks.push(attack)
+
+                    // random 3
+                    ctx.fillRect(this.randomx3, this.randomy3 - this.warningY, this.laserX, this.laserY)
+                    var attack = {
+                        x: this.randomx3,
+                        y: this.randomy3 - this.warningY,
+                        width: this.laserX,
+                        height: this.laserY
+                    }
+                    this.attacks.push(attack)
+
+                    // random 4
+                    ctx.fillRect(this.randomx4, this.randomy4 - this.warningY, this.laserX, this.laserY)
+                    var attack = {
+                        x: this.randomx4,
+                        y: this.randomy4 - this.warningY,
+                        width: this.laserX,
+                        height: this.laserY
+                    }
+                    this.attacks.push(attack)
+
+                    // random 5
+                    ctx.fillRect(this.randomx5, this.randomy5 - this.warningY, this.laserX, this.laserY)
+                    var attack = {
+                        x: this.randomx5,
+                        y: this.randomy5 - this.warningY,
+                        width: this.laserX,
+                        height: this.laserY
+                    }
+
+                    this.attacks.push(attack)
+                    this.attackReset = true
                 }
             }
 
-            if (this.interval == 9) {
+            if (this.interval == 13) {
                 this.interval = 0;
                 let playerGameObject = GameObject.getObjectByName("PlayerComponent");
                 let playerComponent = playerGameObject.getComponent("PlayerComponent");
                 playerComponent.hitInterval = 0
                 this.attacks = []
 
-                let attackControllerGameObject = GameObject.getObjectByName("AttacksController");
-                let attackControllerComponent = attackControllerGameObject.getComponent("AttacksController");
-                attackControllerComponent.randomAttack = undefined
-                this.turn = false
+                // let attackControllerGameObject = GameObject.getObjectByName("AttacksController");
+                // let attackControllerComponent = attackControllerGameObject.getComponent("AttacksController");
+                // attackControllerComponent.randomAttack = undefined
+                // this.turn = false
             }
         }
     }
@@ -861,6 +939,27 @@ class PlayerComponent extends Component {
         //         this.hitInterval = attacks4Component.interval + 1
         //     }
         // })
+
+        // Hit Detection for Attack5Component -------------------------------------------------
+        let attacks5GameObject = GameObject.getObjectByName("Attack5Component");
+        let attacks5Component = attacks5GameObject.getComponent("Attack5Component");
+
+        // Handle iFrames
+        if (this.iFrame && this.hitInterval < attacks5Component.interval) {
+            this.iFrame = false
+        }
+
+        // Check for hit detection
+        attacks5Component.attacks.forEach(attack => {
+            var distX = Math.abs(this.transform.x - attack.x - attack.width / 2);
+            var distY = Math.abs(this.transform.y - attack.y - attack.height / 2);
+
+            if (distX <= (attack.width / 2) && !this.iFrame && distY <= (attack.height / 2)) {
+                livesComponent.lives--
+                this.iFrame = true
+                this.hitInterval = attacks5Component.interval + 1
+            }
+        })
     }
 }
 
