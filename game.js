@@ -474,12 +474,12 @@ class Attack3Component extends Component {
         this.timer = 0;
         this.interval = 0;
         this.count = 0;
-        this.turn = true;
+        this.turn = false;
         this.blue
         this.colors = []
-        this.previousInterval
-        this.attackReset = true
         this.randomIndex
+        this.attackNumber = 0
+        this.number = 0
     }
     update() {
         if (this.turn) {
@@ -505,8 +505,8 @@ class Attack3Component extends Component {
 
                 //y
                 ctx.strokeRect((this.margin + this.size) / 2, this.margin, this.warningX, this.warningY)
-                ctx.fillRect((this.margin + this.size) / 2, this.margin - (this.warningY / 2 + 11) + 40, 5, 5)
-                ctx.fillRect((this.margin + this.size) / 2, this.margin - (this.warningY / 2 + 25) + 40, 5, 10)
+                ctx.fillRect((this.margin + this.size) / 2 + 9, this.margin - (this.warningY / 2 + 11) + 40, 5, 5)
+                ctx.fillRect((this.margin + this.size) / 2 + 9, this.margin - (this.warningY / 2 + 25) + 40, 5, 10)
             }
 
             // Blue Attack
@@ -543,8 +543,8 @@ class Attack3Component extends Component {
 
                 //y
                 ctx.strokeRect((this.margin + this.size) / 2, this.margin, this.warningX, this.warningY)
-                ctx.fillRect((this.margin + this.size) / 2, this.margin - (this.warningY / 2 + 11) + 40, 5, 5)
-                ctx.fillRect((this.margin + this.size) / 2, this.margin - (this.warningY / 2 + 25) + 40, 5, 10)
+                ctx.fillRect((this.margin + this.size) / 2 + 9, this.margin - (this.warningY / 2 + 11) + 40, 5, 5)
+                ctx.fillRect((this.margin + this.size) / 2 + 9, this.margin - (this.warningY / 2 + 25) + 40, 5, 10)
                 this.count = 0
             }
 
@@ -566,75 +566,326 @@ class Attack3Component extends Component {
                     }
                     this.attacks.push(attack)
                 }
-                this.previousInterval = this.interval + 1
             }
 
             // Warnings
-            if (this.interval > 8 && this.interval <= 13) {
-                if (this.interval == this.previousInterval) {
-                    if (this.attackReset) {
-                        this.randomIndex = Math.floor(Math.random() * 2)
-                        this.attackReset = false
-                    }
-
-                    if (this.randomIndex == 1) {
-                        ctx.strokeStyle = "blue"
-                        ctx.fillStyle = "blue"
+            if (this.interval == 9) {
+                if (this.attackNumber == 0) {
+                    this.randomIndex = Math.floor(Math.random() * 2)
+                    this.attackNumber += 1
+                    this.number += 1
+                    if (this.randomIndex == 0) {
                         this.colors.push("blue")
                     }
-
                     else {
-                        ctx.strokeStyle = "orange"
-                        ctx.fillStyle = "orange"
                         this.colors.push("orange")
                     }
+                }
 
-                    ctx.strokeRect((this.margin + this.size) / 2, this.margin - 25, this.warningX, this.warningY)
-                    ctx.fillRect((this.margin + this.size) / 2, this.margin - 25 - (this.warningY / 2 + 11) + 40, 5, 5)
-                    ctx.fillRect((this.margin + this.size) / 2, this.margin - 25 - (this.warningY / 2 + 25) + 40, 5, 10)
+                if (this.randomIndex == 0) {
+                    ctx.strokeStyle = "blue"
+                    ctx.fillStyle = "blue"
+                }
 
-                    if (this.interval > this.previousInterval) {
-                        this.previousInterval = this.interval
-                        this.attackReset = true
+                else {
+                    ctx.strokeStyle = "orange"
+                    ctx.fillStyle = "orange"
+                }
+
+                ctx.strokeRect((this.margin + this.size) / 2, this.margin - 25, this.warningX, this.warningY)
+                ctx.fillRect((this.margin + this.size) / 2 + 9, this.margin - 25 - (this.warningY / 2 + 11) + 40, 5, 5)
+                ctx.fillRect((this.margin + this.size) / 2 + 9, this.margin - 25 - (this.warningY / 2 + 25) + 40, 5, 10)
+                ctx.fillText(this.number, (this.margin + this.size) / 2 + 9, this.margin - 30);
+            }
+
+            if (this.interval == 10) {
+                if (this.attackNumber == 1) {
+                    this.randomIndex = Math.floor(Math.random() * 2)
+                    this.attackNumber += 1
+                    this.number += 1
+
+                    if (this.randomIndex == 0) {
+                        this.colors.push("blue")
+                    }
+                    else {
+                        this.colors.push("orange")
                     }
                 }
+
+                if (this.randomIndex == 0) {
+                    ctx.strokeStyle = "blue"
+                    ctx.fillStyle = "blue"
+                }
+
+                else {
+                    ctx.strokeStyle = "orange"
+                    ctx.fillStyle = "orange"
+                }
+
+                ctx.strokeRect((this.margin + this.size) / 2, this.margin - 25, this.warningX, this.warningY)
+                ctx.fillRect((this.margin + this.size) / 2 + 9, this.margin - 25 - (this.warningY / 2 + 11) + 40, 5, 5)
+                ctx.fillRect((this.margin + this.size) / 2 + 9, this.margin - 25 - (this.warningY / 2 + 25) + 40, 5, 10)
+                ctx.fillText(this.number, (this.margin + this.size) / 2 + 9, this.margin - 30);
+            }
+
+            if (this.interval == 11) {
+                if (this.attackNumber == 2) {
+                    this.randomIndex = Math.floor(Math.random() * 2)
+                    this.attackNumber += 1
+                    this.number += 1
+                    if (this.randomIndex == 0) {
+                        this.colors.push("blue")
+                    }
+                    else {
+                        this.colors.push("orange")
+                    }
+                }
+
+                if (this.randomIndex == 0) {
+                    ctx.strokeStyle = "blue"
+                    ctx.fillStyle = "blue"
+                }
+
+                else {
+                    ctx.strokeStyle = "orange"
+                    ctx.fillStyle = "orange"
+                }
+
+                ctx.strokeRect((this.margin + this.size) / 2, this.margin - 25, this.warningX, this.warningY)
+                ctx.fillRect((this.margin + this.size) / 2 + 9, this.margin - 25 - (this.warningY / 2 + 11) + 40, 5, 5)
+                ctx.fillRect((this.margin + this.size) / 2 + 9, this.margin - 25 - (this.warningY / 2 + 25) + 40, 5, 10)
+                ctx.fillText(this.number, (this.margin + this.size) / 2 + 9, this.margin - 30);
+            }
+
+            if (this.interval == 12) {
+                if (this.attackNumber == 3) {
+                    this.randomIndex = Math.floor(Math.random() * 2)
+                    this.attackNumber += 1
+                    this.number += 1
+
+                    if (this.randomIndex == 0) {
+                        this.colors.push("blue")
+                    }
+                    else {
+                        this.colors.push("orange")
+                    }
+                }
+
+                if (this.randomIndex == 0) {
+                    ctx.strokeStyle = "blue"
+                    ctx.fillStyle = "blue"
+                }
+
+                else {
+                    ctx.strokeStyle = "orange"
+                    ctx.fillStyle = "orange"
+                }
+
+                ctx.strokeRect((this.margin + this.size) / 2, this.margin - 25, this.warningX, this.warningY)
+                ctx.fillRect((this.margin + this.size) / 2 + 9, this.margin - 25 - (this.warningY / 2 + 11) + 40, 5, 5)
+                ctx.fillRect((this.margin + this.size) / 2 + 9, this.margin - 25 - (this.warningY / 2 + 25) + 40, 5, 10)
+                ctx.fillText(this.number, (this.margin + this.size) / 2 + 9, this.margin - 30);
+            }
+
+            if (this.interval == 13) {
+                if (this.attackNumber == 4) {
+                    this.randomIndex = Math.floor(Math.random() * 2)
+                    this.attackNumber += 1
+                    this.number += 1
+
+                    if (this.randomIndex == 0) {
+                        this.colors.push("blue")
+                    }
+                    else {
+                        this.colors.push("orange")
+                    }
+                }
+
+                if (this.randomIndex == 0) {
+                    ctx.strokeStyle = "blue"
+                    ctx.fillStyle = "blue"
+                }
+
+                else {
+                    ctx.strokeStyle = "orange"
+                    ctx.fillStyle = "orange"
+                }
+
+                ctx.strokeRect((this.margin + this.size) / 2, this.margin - 25, this.warningX, this.warningY)
+                ctx.fillRect((this.margin + this.size) / 2 + 9, this.margin - 25 - (this.warningY / 2 + 11) + 40, 5, 5)
+                ctx.fillRect((this.margin + this.size) / 2 + 9, this.margin - 25 - (this.warningY / 2 + 25) + 40, 5, 10)
+                ctx.fillText(this.number, (this.margin + this.size) / 2 + 9, this.margin - 30);
             }
 
             // Attacks
-            if (this.interval > 13 && this.interval <= 18) {
-                if (this.interval == 14) {
-                    this.previousInterval = 14
+            if (this.interval == 14) {
+                if (this.attackNumber == 5) {
+                    this.attackNumber += 1
+                    this.number = 1
+                }
+                if (this.colors[0] == "blue") {
+                    ctx.strokeStyle = "blue"
+                    ctx.fillStyle = "blue"
+                    this.blue = true
                 }
 
-                if (this.interval == this.previousInterval) {
-                    if (this.colors[0] == "blue") {
-                        ctx.strokeStyle = "blue"
-                        ctx.fillStyle = "blue"
-                        this.blue = true
-                    }
-
-                    if (this.colors[0] == "orange") {
-                        ctx.strokeStyle = "orange"
-                        ctx.fillStyle = "orange"
-                        this.blue = false
-                    }
-
-                    ctx.fillRect(this.margin * 2, this.margin * 2, this.size - this.margin, this.size - this.margin)
-                    var attack = {
-                        x: this.margin * 2,
-                        y: this.margin * 2,
-                        width: this.size - this.margin,
-                        height: this.size - this.margin
-                    }
-                    this.attacks.push(attack)
+                if (this.colors[0] == "orange") {
+                    ctx.strokeStyle = "orange"
+                    ctx.fillStyle = "orange"
+                    this.blue = false
                 }
 
-                if (this.interval > this.previousInterval) {
-                    this.previousInterval = this.interval
+                ctx.fillRect(this.margin, this.margin, this.size, this.size)
+                var attack = {
+                    x: this.margin,
+                    y: this.margin,
+                    width: this.size,
+                    height: this.size
                 }
+                this.attacks.push(attack)
+                ctx.fillText(this.number, (this.margin + this.size) / 2 + 9, this.margin - 30)
+            }
+
+            if (this.interval == 15) {
+                this.attacks = []
+            }
+
+            if (this.interval == 16) {
+                if (this.attackNumber == 6) {
+                    this.attackNumber += 1
+                    this.number += 1
+                    this.colors.shift()
+                }
+
+                if (this.colors[0] == "blue") {
+                    ctx.strokeStyle = "blue"
+                    ctx.fillStyle = "blue"
+                    this.blue = true
+                }
+
+                if (this.colors[0] == "orange") {
+                    ctx.strokeStyle = "orange"
+                    ctx.fillStyle = "orange"
+                    this.blue = false
+                }
+
+                ctx.fillRect(this.margin, this.margin, this.size, this.size)
+                var attack = {
+                    x: this.margin,
+                    y: this.margin,
+                    width: this.size,
+                    height: this.size
+                }
+                this.attacks.push(attack)
+                ctx.fillText(this.number, (this.margin + this.size) / 2 + 9, this.margin - 30)
+            }
+
+            if (this.interval == 17) {
+                this.attacks = []
+            }
+
+            if (this.interval == 18) {
+                if (this.attackNumber == 7) {
+                    this.attackNumber += 1
+                    this.number += 1
+                    this.colors.shift()
+                }
+
+                if (this.colors[0] == "blue") {
+                    ctx.strokeStyle = "blue"
+                    ctx.fillStyle = "blue"
+                    this.blue = true
+                }
+
+                if (this.colors[0] == "orange") {
+                    ctx.strokeStyle = "orange"
+                    ctx.fillStyle = "orange"
+                    this.blue = false
+                }
+
+                ctx.fillRect(this.margin, this.margin, this.size, this.size)
+                var attack = {
+                    x: this.margin,
+                    y: this.margin,
+                    width: this.size,
+                    height: this.size
+                }
+                this.attacks.push(attack)
+                ctx.fillText(this.number, (this.margin + this.size) / 2 + 9, this.margin - 30)
             }
 
             if (this.interval == 19) {
+                this.attacks = []
+            }
+
+            if (this.interval == 20) {
+                if (this.attackNumber == 8) {
+                    this.attackNumber += 1
+                    this.number += 1
+                    this.colors.shift()
+                }
+
+                if (this.colors[0] == "blue") {
+                    ctx.strokeStyle = "blue"
+                    ctx.fillStyle = "blue"
+                    this.blue = true
+                }
+
+                if (this.colors[0] == "orange") {
+                    ctx.strokeStyle = "orange"
+                    ctx.fillStyle = "orange"
+                    this.blue = false
+                }
+
+                ctx.fillRect(this.margin, this.margin, this.size, this.size)
+                var attack = {
+                    x: this.margin,
+                    y: this.margin,
+                    width: this.size,
+                    height: this.size
+                }
+                this.attacks.push(attack)
+                ctx.fillText(this.number, (this.margin + this.size) / 2 + 9, this.margin - 30)
+            }
+
+            if (this.interval == 21) {
+                this.attacks = []
+            }
+
+            if (this.interval == 22) {
+                if (this.attackNumber == 9) {
+                    this.attackNumber += 1
+                    this.number += 1
+                    this.colors.shift()
+                }
+
+                if (this.colors[0] == "blue") {
+                    ctx.strokeStyle = "blue"
+                    ctx.fillStyle = "blue"
+                    this.blue = true
+                }
+
+                if (this.colors[0] == "orange") {
+                    ctx.strokeStyle = "orange"
+                    ctx.fillStyle = "orange"
+                    this.blue = false
+                }
+
+                ctx.fillRect(this.margin, this.margin, this.size, this.size)
+                var attack = {
+                    x: this.margin,
+                    y: this.margin,
+                    width: this.size,
+                    height: this.size
+                }
+                this.attacks.push(attack)
+                ctx.fillText(this.number, (this.margin + this.size) / 2 + 9, this.margin - 30)
+            }
+            if (this.interval == 23) {
+                this.attacks = []
+            }
+
+            if (this.interval == 24) {
                 this.interval = 0
                 this.count = 0
                 let playerGameObject = GameObject.getObjectByName("PlayerComponent");
@@ -888,10 +1139,6 @@ class Attack5Component extends Component {
     }
 }
 
-class Attack6Component extends Component {
-    name = "Attack6Component"
-}
-
 class PlayerComponent extends Component {
     name = "PlayerComponent"
     start() {
@@ -939,47 +1186,47 @@ class PlayerComponent extends Component {
         let livesGameObject = GameObject.getObjectByName("LivesGameObject")
         let livesComponent = livesGameObject.getComponent("LivesComponent")
 
-        // // Hit Detection for Attack1Component -------------------------------------------------
-        // let attacks1GameObject = GameObject.getObjectByName("Attack1Component");
-        // let attacks1Component = attacks1GameObject.getComponent("Attack1Component");
+        // Hit Detection for Attack1Component -------------------------------------------------
+        let attacks1GameObject = GameObject.getObjectByName("Attack1Component");
+        let attacks1Component = attacks1GameObject.getComponent("Attack1Component");
 
-        // // Handle iFrames
-        // if (this.iFrame && this.hitInterval < attacks1Component.interval) {
-        //     this.iFrame = false
-        // }
+        // Handle iFrames
+        if (this.iFrame && this.hitInterval < attacks1Component.interval) {
+            this.iFrame = false
+        }
 
-        // // Check for hit detection
-        // attacks1Component.attacks.forEach(attack => {
-        //     var distX = Math.abs(this.transform.x - attack.x - attack.width / 2);
-        //     var distY = Math.abs(this.transform.y - attack.y - attack.height / 2);
+        // Check for hit detection
+        attacks1Component.attacks.forEach(attack => {
+            var distX = Math.abs(this.transform.x - attack.x - attack.width / 2);
+            var distY = Math.abs(this.transform.y - attack.y - attack.height / 2);
 
-        //     if (distX <= (attack.width / 2) && !this.iFrame && distY <= (attack.height / 2)) {
-        //         livesComponent.lives--
-        //         this.iFrame = true
-        //         this.hitInterval = attacks1Component.interval + 1
-        //     }
-        // })
+            if (distX <= (attack.width / 2) && !this.iFrame && distY <= (attack.height / 2)) {
+                livesComponent.lives--
+                this.iFrame = true
+                this.hitInterval = attacks1Component.interval + 1
+            }
+        })
 
-        // // Hit Detection for Attack2Component -------------------------------------------------
-        // let attacks2GameObject = GameObject.getObjectByName("Attack2Component");
-        // let attacks2Component = attacks2GameObject.getComponent("Attack2Component");
+        // Hit Detection for Attack2Component -------------------------------------------------
+        let attacks2GameObject = GameObject.getObjectByName("Attack2Component");
+        let attacks2Component = attacks2GameObject.getComponent("Attack2Component");
 
-        // // Handle iFrames
-        // if (this.iFrame && this.hitInterval < attacks2Component.interval) {
-        //     this.iFrame = false
-        // }
+        // Handle iFrames
+        if (this.iFrame && this.hitInterval < attacks2Component.interval) {
+            this.iFrame = false
+        }
 
-        // // Check for hit detection
-        // attacks2Component.attacks.forEach(attack => {
-        //     var distX = Math.abs(this.transform.x - attack.x - attack.width / 2);
-        //     var distY = Math.abs(this.transform.y - attack.y - attack.height / 2);
+        // Check for hit detection
+        attacks2Component.attacks.forEach(attack => {
+            var distX = Math.abs(this.transform.x - attack.x - attack.width / 2);
+            var distY = Math.abs(this.transform.y - attack.y - attack.height / 2);
 
-        //     if (distX <= (attack.width / 2) && !this.iFrame && distY <= (attack.height / 2)) {
-        //         livesComponent.lives--
-        //         this.iFrame = true
-        //         this.hitInterval = attacks2Component.interval + 1
-        //     }
-        // })
+            if (distX <= (attack.width / 2) && !this.iFrame && distY <= (attack.height / 2)) {
+                livesComponent.lives--
+                this.iFrame = true
+                this.hitInterval = attacks2Component.interval + 1
+            }
+        })
 
         // Hit Detection for Attack3Component -------------------------------------------------
         let attacks3GameObject = GameObject.getObjectByName("Attack3Component");
@@ -1010,47 +1257,47 @@ class PlayerComponent extends Component {
             }
         })
 
-        // // Hit Detection for Attack4Component -------------------------------------------------
-        // let attacks4GameObject = GameObject.getObjectByName("Attack4Component");
-        // let attacks4Component = attacks4GameObject.getComponent("Attack4Component");
+        // Hit Detection for Attack4Component -------------------------------------------------
+        let attacks4GameObject = GameObject.getObjectByName("Attack4Component");
+        let attacks4Component = attacks4GameObject.getComponent("Attack4Component");
 
-        // // Handle iFrames
-        // if (this.iFrame && this.hitInterval < attacks4Component.interval) {
-        //     this.iFrame = false
-        // }
+        // Handle iFrames
+        if (this.iFrame && this.hitInterval < attacks4Component.interval) {
+            this.iFrame = false
+        }
 
-        // // Check for hit detection
-        // attacks4Component.attacks.forEach(attack => {
-        //     var distX = Math.abs(this.transform.x - attack.x - attack.width / 2);
-        //     var distY = Math.abs(this.transform.y - attack.y - attack.height / 2);
+        // Check for hit detection
+        attacks4Component.attacks.forEach(attack => {
+            var distX = Math.abs(this.transform.x - attack.x - attack.width / 2);
+            var distY = Math.abs(this.transform.y - attack.y - attack.height / 2);
 
-        //     if (distX <= (attack.width / 2) && !this.iFrame && distY <= (attack.height / 2)) {
-        //         livesComponent.lives--
-        //         this.iFrame = true
-        //         this.hitInterval = attacks4Component.interval + 1
-        //     }
-        // })
+            if (distX <= (attack.width / 2) && !this.iFrame && distY <= (attack.height / 2)) {
+                livesComponent.lives--
+                this.iFrame = true
+                this.hitInterval = attacks4Component.interval + 1
+            }
+        })
 
-        // // Hit Detection for Attack5Component -------------------------------------------------
-        // let attacks5GameObject = GameObject.getObjectByName("Attack5Component");
-        // let attacks5Component = attacks5GameObject.getComponent("Attack5Component");
+        // Hit Detection for Attack5Component -------------------------------------------------
+        let attacks5GameObject = GameObject.getObjectByName("Attack5Component");
+        let attacks5Component = attacks5GameObject.getComponent("Attack5Component");
 
-        // // Handle iFrames
-        // if (this.iFrame && this.hitInterval < attacks5Component.interval) {
-        //     this.iFrame = false
-        // }
+        // Handle iFrames
+        if (this.iFrame && this.hitInterval < attacks5Component.interval) {
+            this.iFrame = false
+        }
 
-        // // Check for hit detection
-        // attacks5Component.attacks.forEach(attack => {
-        //     var distX = Math.abs(this.transform.x - attack.x - attack.width / 2);
-        //     var distY = Math.abs(this.transform.y - attack.y - attack.height / 2);
+        // Check for hit detection
+        attacks5Component.attacks.forEach(attack => {
+            var distX = Math.abs(this.transform.x - attack.x - attack.width / 2);
+            var distY = Math.abs(this.transform.y - attack.y - attack.height / 2);
 
-        //     if (distX <= (attack.width / 2) && !this.iFrame && distY <= (attack.height / 2)) {
-        //         livesComponent.lives--
-        //         this.iFrame = true
-        //         this.hitInterval = attacks5Component.interval + 1
-        //     }
-        // })
+            if (distX <= (attack.width / 2) && !this.iFrame && distY <= (attack.height / 2)) {
+                livesComponent.lives--
+                this.iFrame = true
+                this.hitInterval = attacks5Component.interval + 1
+            }
+        })
     }
 }
 
@@ -1125,13 +1372,12 @@ class MainScene extends Scene {
     }
     start() {
         // Attacks Code
-        // this.addGameObject(new GameObject("Attack1Component").addComponent(new Attack1Component()))
-        // this.addGameObject(new GameObject("Attack2Component").addComponent(new Attack2Component()))
+        this.addGameObject(new GameObject("Attack1Component").addComponent(new Attack1Component()))
+        this.addGameObject(new GameObject("Attack2Component").addComponent(new Attack2Component()))
         this.addGameObject(new GameObject("Attack3Component").addComponent(new Attack3Component()))
-        // this.addGameObject(new GameObject("Attack4Component").addComponent(new Attack4Component()))
-        // this.addGameObject(new GameObject("Attack5Component").addComponent(new Attack5Component()))
-        // this.addGameObject(new GameObject("Attack6Component").addComponent(new Attack6Component()))
-        // this.addGameObject(new GameObject("AttacksController").addComponent(new AttacksController()))
+        this.addGameObject(new GameObject("Attack4Component").addComponent(new Attack4Component()))
+        this.addGameObject(new GameObject("Attack5Component").addComponent(new Attack5Component()))
+        this.addGameObject(new GameObject("AttacksController").addComponent(new AttacksController()))
 
         // Player code
         let playerComponent = new GameObject("PlayerComponent")
