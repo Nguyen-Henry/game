@@ -23,7 +23,7 @@ class StartDrawComponent extends Component {
     draw(ctx) {
         ctx.fillStyle = "white";
         ctx.font = "40px Courier"
-        ctx.fillText("Welcome to Walmart Undertale", 100, 100);
+        ctx.fillText("Welcome to Dodge!", 100, 100);
         ctx.fillText("Press space to start", 100, 200);
         ctx.fillText("Press p to pause", 100, 250);
         ctx.fillText("Orange attack = move", 100, 300);
@@ -1043,7 +1043,7 @@ class Attack4Component extends Component {
             if (this.interval >= 13 && this.interval <= 28) {
                 // Warning Attack
                 if (this.interval % 2 == 1) {
-                    ctx.fillStyle = "yellow"
+                    ctx.fillStyle = "aquamarine"
 
                     if (this.tempPlayerX != 0 && this.attackReset) {
                         this.tempPlayerX = 0
