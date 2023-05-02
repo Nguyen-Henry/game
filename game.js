@@ -285,7 +285,7 @@ class Attack2Component extends Component {
     update() {
         if (this.turn) {
             this.timer++
-            if (this.timer % 8 == 0) {
+            if (this.timer % 12 == 0) {
                 this.interval++
             }
         }
@@ -354,6 +354,7 @@ class Attack2Component extends Component {
                     ctx.strokeRect(this.margin + 50 * i, this.margin + this.size - this.warningY, this.warningX, this.warningY)
                     ctx.fillRect(this.margin + 50 * i + 10, this.margin + this.size - (this.warningY / 2 - 4), 5, 5)
                     ctx.fillRect(this.margin + 50 * i + 10, this.margin + this.size - (this.warningY / 2 + 10), 5, 10)
+                    this.attacks = []
                 }
             }
 
@@ -983,7 +984,7 @@ class Attack4Component extends Component {
         this.laserY = this.size
         this.timer = 0
         this.interval = 0
-        this.turn = true
+        this.turn = false
         this.tempPlayerX = 0
         this.attackReset = true
         this.randomIndex
@@ -1175,7 +1176,7 @@ class Attack5Component extends Component {
         this.timer = 0
         this.interval = 0
         this.attacks = []
-        this.turn = true
+        this.turn = false
         this.randomx1 = 0
         this.randomx2 = 0
         this.randomx3 = 0
@@ -1366,118 +1367,118 @@ class PlayerComponent extends Component {
         let livesGameObject = GameObject.getObjectByName("LivesGameObject")
         let livesComponent = livesGameObject.getComponent("LivesComponent")
 
-        // // Hit Detection for Attack1Component -------------------------------------------------
-        // let attacks1GameObject = GameObject.getObjectByName("Attack1Component");
-        // let attacks1Component = attacks1GameObject.getComponent("Attack1Component");
+        // Hit Detection for Attack1Component -------------------------------------------------
+        let attacks1GameObject = GameObject.getObjectByName("Attack1Component");
+        let attacks1Component = attacks1GameObject.getComponent("Attack1Component");
 
-        // // Handle iFrames
-        // if (this.iFrame && this.hitInterval < attacks1Component.interval) {
-        //     this.iFrame = false
-        // }
+        // Handle iFrames
+        if (this.iFrame && this.hitInterval < attacks1Component.interval) {
+            this.iFrame = false
+        }
 
-        // // Check for hit detection
-        // attacks1Component.attacks.forEach(attack => {
-        //     var distX = Math.abs(this.transform.x - attack.x - attack.width / 2);
-        //     var distY = Math.abs(this.transform.y - attack.y - attack.height / 2);
+        // Check for hit detection
+        attacks1Component.attacks.forEach(attack => {
+            var distX = Math.abs(this.transform.x - attack.x - attack.width / 2);
+            var distY = Math.abs(this.transform.y - attack.y - attack.height / 2);
 
-        //     if (distX <= (attack.width / 2) && !this.iFrame && distY <= (attack.height / 2)) {
-        //         livesComponent.lives--
-        //         this.iFrame = true
-        //         this.hitInterval = attacks1Component.interval + 1
-        //     }
-        // })
+            if (distX <= (attack.width / 2) && !this.iFrame && distY <= (attack.height / 2)) {
+                livesComponent.lives--
+                this.iFrame = true
+                this.hitInterval = attacks1Component.interval + 1
+            }
+        })
 
-        // // Hit Detection for Attack2Component -------------------------------------------------
-        // let attacks2GameObject = GameObject.getObjectByName("Attack2Component");
-        // let attacks2Component = attacks2GameObject.getComponent("Attack2Component");
+        // Hit Detection for Attack2Component -------------------------------------------------
+        let attacks2GameObject = GameObject.getObjectByName("Attack2Component");
+        let attacks2Component = attacks2GameObject.getComponent("Attack2Component");
 
-        // // Handle iFrames
-        // if (this.iFrame && this.hitInterval < attacks2Component.interval) {
-        //     this.iFrame = false
-        // }
+        // Handle iFrames
+        if (this.iFrame && this.hitInterval < attacks2Component.interval) {
+            this.iFrame = false
+        }
 
-        // // Check for hit detection
-        // attacks2Component.attacks.forEach(attack => {
-        //     var distX = Math.abs(this.transform.x - attack.x - attack.width / 2);
-        //     var distY = Math.abs(this.transform.y - attack.y - attack.height / 2);
+        // Check for hit detection
+        attacks2Component.attacks.forEach(attack => {
+            var distX = Math.abs(this.transform.x - attack.x - attack.width / 2);
+            var distY = Math.abs(this.transform.y - attack.y - attack.height / 2);
 
-        //     if (distX <= (attack.width / 2) && !this.iFrame && distY <= (attack.height / 2)) {
-        //         livesComponent.lives--
-        //         this.iFrame = true
-        //         this.hitInterval = attacks2Component.interval + 1
-        //     }
-        // })
+            if (distX <= (attack.width / 2) && !this.iFrame && distY <= (attack.height / 2)) {
+                livesComponent.lives--
+                this.iFrame = true
+                this.hitInterval = attacks2Component.interval + 1
+            }
+        })
 
-        // // Hit Detection for Attack3Component -------------------------------------------------
-        // let attacks3GameObject = GameObject.getObjectByName("Attack3Component");
-        // let attacks3Component = attacks3GameObject.getComponent("Attack3Component");
+        // Hit Detection for Attack3Component -------------------------------------------------
+        let attacks3GameObject = GameObject.getObjectByName("Attack3Component");
+        let attacks3Component = attacks3GameObject.getComponent("Attack3Component");
 
-        // // Handle iFrames
-        // if (this.iFrame && this.hitInterval < attacks3Component.interval) {
-        //     this.iFrame = false
-        // }
+        // Handle iFrames
+        if (this.iFrame && this.hitInterval < attacks3Component.interval) {
+            this.iFrame = false
+        }
 
-        // // Check for hit detection
-        // attacks3Component.attacks.forEach(attack => {
-        //     var distX = Math.abs(this.transform.x - attack.x - attack.width / 2);
-        //     var distY = Math.abs(this.transform.y - attack.y - attack.height / 2);
+        // Check for hit detection
+        attacks3Component.attacks.forEach(attack => {
+            var distX = Math.abs(this.transform.x - attack.x - attack.width / 2);
+            var distY = Math.abs(this.transform.y - attack.y - attack.height / 2);
 
-        //     if (distX <= (attack.width / 2) && !this.iFrame && distY <= (attack.height / 2)) {
-        //         if (attacks3Component.blue && (keysDown["ArrowRight"] || keysDown["ArrowLeft"] || keysDown["ArrowUp"] || keysDown["ArrowDown"])) {
-        //             livesComponent.lives--
-        //             this.iFrame = true
-        //             this.hitInterval = attacks3Component.interval + 1
-        //         }
+            if (distX <= (attack.width / 2) && !this.iFrame && distY <= (attack.height / 2)) {
+                if (attacks3Component.blue && (keysDown["ArrowRight"] || keysDown["ArrowLeft"] || keysDown["ArrowUp"] || keysDown["ArrowDown"])) {
+                    livesComponent.lives--
+                    this.iFrame = true
+                    this.hitInterval = attacks3Component.interval + 1
+                }
 
-        //         if (!attacks3Component.blue && !(keysDown["ArrowRight"] || keysDown["ArrowLeft"] || keysDown["ArrowUp"] || keysDown["ArrowDown"])) {
-        //             livesComponent.lives--
-        //             this.iFrame = true
-        //             this.hitInterval = attacks3Component.interval + 1
-        //         }
-        //     }
-        // })
+                if (!attacks3Component.blue && !(keysDown["ArrowRight"] || keysDown["ArrowLeft"] || keysDown["ArrowUp"] || keysDown["ArrowDown"])) {
+                    livesComponent.lives--
+                    this.iFrame = true
+                    this.hitInterval = attacks3Component.interval + 1
+                }
+            }
+        })
 
-        // // Hit Detection for Attack4Component -------------------------------------------------
-        // let attacks4GameObject = GameObject.getObjectByName("Attack4Component");
-        // let attacks4Component = attacks4GameObject.getComponent("Attack4Component");
+        // Hit Detection for Attack4Component -------------------------------------------------
+        let attacks4GameObject = GameObject.getObjectByName("Attack4Component");
+        let attacks4Component = attacks4GameObject.getComponent("Attack4Component");
 
-        // // Handle iFrames
-        // if (this.iFrame && this.hitInterval < attacks4Component.interval) {
-        //     this.iFrame = false
-        // }
+        // Handle iFrames
+        if (this.iFrame && this.hitInterval < attacks4Component.interval) {
+            this.iFrame = false
+        }
 
-        // // Check for hit detection
-        // attacks4Component.attacks.forEach(attack => {
-        //     var distX = Math.abs(this.transform.x - attack.x - attack.width / 2);
-        //     var distY = Math.abs(this.transform.y - attack.y - attack.height / 2);
+        // Check for hit detection
+        attacks4Component.attacks.forEach(attack => {
+            var distX = Math.abs(this.transform.x - attack.x - attack.width / 2);
+            var distY = Math.abs(this.transform.y - attack.y - attack.height / 2);
 
-        //     if (distX <= (attack.width / 2) && !this.iFrame && distY <= (attack.height / 2)) {
-        //         livesComponent.lives--
-        //         this.iFrame = true
-        //         this.hitInterval = attacks4Component.interval + 1
-        //     }
-        // })
+            if (distX <= (attack.width / 2) && !this.iFrame && distY <= (attack.height / 2)) {
+                livesComponent.lives--
+                this.iFrame = true
+                this.hitInterval = attacks4Component.interval + 1
+            }
+        })
 
-        // // Hit Detection for Attack5Component -------------------------------------------------
-        // let attacks5GameObject = GameObject.getObjectByName("Attack5Component");
-        // let attacks5Component = attacks5GameObject.getComponent("Attack5Component");
+        // Hit Detection for Attack5Component -------------------------------------------------
+        let attacks5GameObject = GameObject.getObjectByName("Attack5Component");
+        let attacks5Component = attacks5GameObject.getComponent("Attack5Component");
 
-        // // Handle iFrames
-        // if (this.iFrame && this.hitInterval < attacks5Component.interval) {
-        //     this.iFrame = false
-        // }
+        // Handle iFrames
+        if (this.iFrame && this.hitInterval < attacks5Component.interval) {
+            this.iFrame = false
+        }
 
-        // // Check for hit detection
-        // attacks5Component.attacks.forEach(attack => {
-        //     var distX = Math.abs(this.transform.x - attack.x - attack.width / 2);
-        //     var distY = Math.abs(this.transform.y - attack.y - attack.height / 2);
+        // Check for hit detection
+        attacks5Component.attacks.forEach(attack => {
+            var distX = Math.abs(this.transform.x - attack.x - attack.width / 2);
+            var distY = Math.abs(this.transform.y - attack.y - attack.height / 2);
 
-        //     if (distX <= (attack.width / 2) && !this.iFrame && distY <= (attack.height / 2)) {
-        //         livesComponent.lives--
-        //         this.iFrame = true
-        //         this.hitInterval = attacks5Component.interval + 1
-        //     }
-        // })
+            if (distX <= (attack.width / 2) && !this.iFrame && distY <= (attack.height / 2)) {
+                livesComponent.lives--
+                this.iFrame = true
+                this.hitInterval = attacks5Component.interval + 1
+            }
+        })
     }
 }
 
@@ -1552,12 +1553,12 @@ class MainScene extends Scene {
     }
     start() {
         // Attacks Code
-        // this.addGameObject(new GameObject("Attack1Component").addComponent(new Attack1Component()))
-        // this.addGameObject(new GameObject("Attack2Component").addComponent(new Attack2Component()))
-        // this.addGameObject(new GameObject("Attack3Component").addComponent(new Attack3Component()))
+        this.addGameObject(new GameObject("Attack1Component").addComponent(new Attack1Component()))
+        this.addGameObject(new GameObject("Attack2Component").addComponent(new Attack2Component()))
+        this.addGameObject(new GameObject("Attack3Component").addComponent(new Attack3Component()))
         this.addGameObject(new GameObject("Attack4Component").addComponent(new Attack4Component()))
-        // this.addGameObject(new GameObject("Attack5Component").addComponent(new Attack5Component()))
-        // this.addGameObject(new GameObject("AttacksController").addComponent(new AttacksController()))
+        this.addGameObject(new GameObject("Attack5Component").addComponent(new Attack5Component()))
+        this.addGameObject(new GameObject("AttacksController").addComponent(new AttacksController()))
 
         // Player code
         let playerComponent = new GameObject("PlayerComponent")
