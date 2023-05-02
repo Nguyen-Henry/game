@@ -285,7 +285,7 @@ class Attack2Component extends Component {
     update() {
         if (this.turn) {
             this.timer++
-            if (this.timer % 12 == 0) {
+            if (this.timer % 8 == 0) {
                 this.interval++
             }
         }
@@ -319,7 +319,6 @@ class Attack2Component extends Component {
                 }
             }
 
-            // Phase 2 Attack
             // Warning Attack
             if (this.interval == 5) {
                 ctx.strokeStyle = "black"
@@ -347,8 +346,61 @@ class Attack2Component extends Component {
                 }
             }
 
-            // Phase 3 Attack
+            // Warning Attack
             if (this.interval == 7) {
+                ctx.strokeStyle = "black"
+                ctx.fillStyle = "black"
+                for (let i = 0; i < this.numLasers; i++) {
+                    ctx.strokeRect(this.margin + 50 * i, this.margin + this.size - this.warningY, this.warningX, this.warningY)
+                    ctx.fillRect(this.margin + 50 * i + 10, this.margin + this.size - (this.warningY / 2 - 4), 5, 5)
+                    ctx.fillRect(this.margin + 50 * i + 10, this.margin + this.size - (this.warningY / 2 + 10), 5, 10)
+                }
+            }
+
+            // Actual Attack
+            ctx.fillStyle = "red"
+            if (this.interval == 8) {
+                for (let i = 0; i < this.numLasers; i++) {
+                    ctx.fillRect(this.margin + 50 * i, this.margin, this.laserX, this.laserY)
+                    var attack = {
+                        x: this.margin + 50 * i,
+                        y: this.margin,
+                        width: this.laserX,
+                        height: this.laserY
+                    }
+                    this.attacks.push(attack)
+                }
+            }
+
+            // Warning Attack
+            if (this.interval == 9) {
+                ctx.strokeStyle = "black"
+                ctx.fillStyle = "black"
+                for (let i = 0; i < this.numLasers; i++) {
+                    ctx.strokeRect(this.margin + 50 * i + 25, this.margin + this.size - this.warningY, this.warningX, this.warningY)
+                    ctx.fillRect(this.margin + 50 * i + 10 + 25, this.margin + this.size - (this.warningY / 2 - 4), 5, 5)
+                    ctx.fillRect(this.margin + 50 * i + 10 + 25, this.margin + this.size - (this.warningY / 2 + 10), 5, 10)
+                }
+                this.attacks = []
+            }
+
+            // Actual Attack
+            ctx.fillStyle = "red"
+            if (this.interval == 10) {
+                for (let i = 0; i < this.numLasers; i++) {
+                    ctx.fillRect(this.margin + 50 * i + 25, this.margin, this.laserX, this.laserY)
+                    var attack = {
+                        x: this.margin + 50 * i + 25,
+                        y: this.margin,
+                        width: this.laserX,
+                        height: this.laserY
+                    }
+                    this.attacks.push(attack)
+                }
+            }
+
+            // Phase 2 Attack
+            if (this.interval == 11) {
                 // Warning Attack
                 ctx.strokeStyle = "black"
                 ctx.fillStyle = "black"
@@ -356,12 +408,16 @@ class Attack2Component extends Component {
                 ctx.strokeRect(this.margin, this.margin + this.size - this.warningY * 2, this.warningX * 2, this.warningY * 2)
                 ctx.fillRect(this.margin + 23, this.margin + this.size - (this.warningY / 2 + 11), 5, 5)
                 ctx.fillRect(this.margin + 23, this.margin + this.size - (this.warningY / 2 + 25), 5, 10)
+
+                ctx.strokeRect(this.margin + 100, this.margin + this.size - this.warningY * 2, this.warningX * 2, this.warningY * 2)
+                ctx.fillRect(this.margin + 123, this.margin + this.size - (this.warningY / 2 + 11), 5, 5)
+                ctx.fillRect(this.margin + 123, this.margin + this.size - (this.warningY / 2 + 25), 5, 10)
                 this.attacks = []
             }
 
 
             // Actual Attack
-            if (this.interval == 8) {
+            if (this.interval == 12) {
                 ctx.fillStyle = "red"
                 ctx.fillRect(this.margin, this.margin, this.laserX * 2, this.laserY)
                 var attack = {
@@ -371,46 +427,7 @@ class Attack2Component extends Component {
                     height: this.laserY
                 }
                 this.attacks.push(attack)
-            }
 
-            if (this.interval == 9) {
-                // Warning Attack
-                ctx.strokeStyle = "black"
-                ctx.fillStyle = "black"
-
-                ctx.strokeRect(this.margin + 50, this.margin + this.size - this.warningY * 2, this.warningX * 2, this.warningY * 2)
-                ctx.fillRect(this.margin + 73, this.margin + this.size - (this.warningY / 2 + 11), 5, 5)
-                ctx.fillRect(this.margin + 73, this.margin + this.size - (this.warningY / 2 + 25), 5, 10)
-                this.attacks = []
-            }
-
-            // Actual Attack
-            if (this.interval == 10) {
-                ctx.fillStyle = "red"
-                ctx.fillRect(this.margin + 50, this.margin, this.laserX * 2, this.laserY)
-                var attack = {
-                    x: this.margin + 50,
-                    y: this.margin,
-                    width: this.laserX * 2,
-                    height: this.laserY
-                }
-                this.attacks.push(attack)
-            }
-
-            if (this.interval == 11) {
-                // Warning Attack
-                ctx.strokeStyle = "black"
-                ctx.fillStyle = "black"
-
-                ctx.strokeRect(this.margin + 100, this.margin + this.size - this.warningY * 2, this.warningX * 2, this.warningY * 2)
-                ctx.fillRect(this.margin + 123, this.margin + this.size - (this.warningY / 2 + 11), 5, 5)
-                ctx.fillRect(this.margin + 123, this.margin + this.size - (this.warningY / 2 + 25), 5, 10)
-                this.attacks = []
-            }
-
-            // Actual Attack
-            if (this.interval == 12) {
-                ctx.fillStyle = "red"
                 ctx.fillRect(this.margin + 100, this.margin, this.laserX * 2, this.laserY)
                 var attack = {
                     x: this.margin + 100,
@@ -426,6 +443,10 @@ class Attack2Component extends Component {
                 ctx.strokeStyle = "black"
                 ctx.fillStyle = "black"
 
+                ctx.strokeRect(this.margin + 50, this.margin + this.size - this.warningY * 2, this.warningX * 2, this.warningY * 2)
+                ctx.fillRect(this.margin + 73, this.margin + this.size - (this.warningY / 2 + 11), 5, 5)
+                ctx.fillRect(this.margin + 73, this.margin + this.size - (this.warningY / 2 + 25), 5, 10)
+
                 ctx.strokeRect(this.margin + 150, this.margin + this.size - this.warningY * 2, this.warningX * 2, this.warningY * 2)
                 ctx.fillRect(this.margin + 173, this.margin + this.size - (this.warningY / 2 + 11), 5, 5)
                 ctx.fillRect(this.margin + 173, this.margin + this.size - (this.warningY / 2 + 25), 5, 10)
@@ -435,6 +456,15 @@ class Attack2Component extends Component {
             // Actual Attack
             if (this.interval == 14) {
                 ctx.fillStyle = "red"
+                ctx.fillRect(this.margin + 50, this.margin, this.laserX * 2, this.laserY)
+                var attack = {
+                    x: this.margin + 50,
+                    y: this.margin,
+                    width: this.laserX * 2,
+                    height: this.laserY
+                }
+                this.attacks.push(attack)
+
                 ctx.fillRect(this.margin + 150, this.margin, this.laserX * 2, this.laserY)
                 var attack = {
                     x: this.margin + 150,
@@ -445,7 +475,45 @@ class Attack2Component extends Component {
                 this.attacks.push(attack)
             }
 
-            if (this.interval >= 15) {
+            if (this.interval == 15) {
+                // Warning Attack
+                ctx.strokeStyle = "black"
+                ctx.fillStyle = "black"
+
+                ctx.strokeRect(this.margin, this.margin + this.size - this.warningY * 2, this.warningX * 2, this.warningY * 2)
+                ctx.fillRect(this.margin + 23, this.margin + this.size - (this.warningY / 2 + 11), 5, 5)
+                ctx.fillRect(this.margin + 23, this.margin + this.size - (this.warningY / 2 + 25), 5, 10)
+
+                ctx.strokeRect(this.margin + 100, this.margin + this.size - this.warningY * 2, this.warningX * 2, this.warningY * 2)
+                ctx.fillRect(this.margin + 123, this.margin + this.size - (this.warningY / 2 + 11), 5, 5)
+                ctx.fillRect(this.margin + 123, this.margin + this.size - (this.warningY / 2 + 25), 5, 10)
+                this.attacks = []
+            }
+
+
+            // Actual Attack
+            if (this.interval == 16) {
+                ctx.fillStyle = "red"
+                ctx.fillRect(this.margin, this.margin, this.laserX * 2, this.laserY)
+                var attack = {
+                    x: this.margin,
+                    y: this.margin,
+                    width: this.laserX * 2,
+                    height: this.laserY
+                }
+                this.attacks.push(attack)
+
+                ctx.fillRect(this.margin + 100, this.margin, this.laserX * 2, this.laserY)
+                var attack = {
+                    x: this.margin + 100,
+                    y: this.margin,
+                    width: this.laserX * 2,
+                    height: this.laserY
+                }
+                this.attacks.push(attack)
+            }
+
+            if (this.interval == 17) {
                 this.interval = 0;
                 this.attacks = []
                 let playerGameObject = GameObject.getObjectByName("PlayerComponent");
@@ -915,18 +983,21 @@ class Attack4Component extends Component {
         this.laserY = this.size
         this.timer = 0
         this.interval = 0
-        this.turn = false
+        this.turn = true
         this.tempPlayerX = 0
         this.attackReset = true
+        this.randomIndex
     }
+    
     update() {
         if (this.turn) {
             this.timer++
-            if (this.timer % 10 == 0) {
+            if (this.timer % 12 == 0) {
                 this.interval++
             }
         }
     }
+
     draw(ctx) {
         if (this.turn) {
             let playerGameObject = GameObject.getObjectByName("PlayerComponent")
@@ -947,10 +1018,12 @@ class Attack4Component extends Component {
                     if (this.tempPlayerX == 0) {
                         this.tempPlayerX = playerX - 12
                     }
+
                     ctx.strokeRect(this.tempPlayerX, this.margin + this.size - this.warningY, this.warningX, this.warningY)
                     ctx.fillRect(this.tempPlayerX + 10, this.margin + this.size - (this.warningY / 2 - 4), 5, 5)
                     ctx.fillRect(this.tempPlayerX + 10, this.margin + this.size - (this.warningY / 2 + 10), 5, 10)
                 }
+
                 else {
                     // Actual Attack
                     ctx.fillStyle = "red"
@@ -966,7 +1039,114 @@ class Attack4Component extends Component {
                 }
             }
 
-            if (this.interval > 13) {
+            if (this.interval >= 13 && this.interval <= 28) {
+                // Warning Attack
+                if (this.interval % 2 == 1) {
+                    ctx.fillStyle = "yellow"
+
+                    if (this.tempPlayerX != 0 && this.attackReset) {
+                        this.tempPlayerX = 0
+                        this.attacks = []
+                        this.attackReset = false
+                        this.randomIndex = Math.floor(Math.random() * 2)
+                    }
+
+                    if (this.randomIndex == 0) {
+                        if (this.tempPlayerX == 0) {
+                            this.tempPlayerX = playerX - 2
+                        }
+
+                        ctx.fillRect(this.tempPlayerX, this.margin, 2, this.size * 2)
+                        ctx.fillRect(this.tempPlayerX - 30, this.margin, 2, this.size * 2)
+                        ctx.fillRect(this.tempPlayerX + 30, this.margin, 2, this.size * 2)
+                    }
+                    else {
+                        if (this.tempPlayerX == 0) {
+                            this.tempPlayerX = playerX - 2
+                        }
+
+                        ctx.fillRect(this.tempPlayerX + 15, this.margin, 2, this.size * 2)
+                        ctx.fillRect(this.tempPlayerX - 15, this.margin, 2, this.size * 2)
+                        ctx.fillRect(this.tempPlayerX + 45, this.margin, 2, this.size * 2)
+                        ctx.fillRect(this.tempPlayerX - 45, this.margin, 2, this.size * 2)
+                    }
+                }
+
+                else {
+                    // Actual Attack
+                    if (this.randomIndex == 0) {
+                        ctx.fillStyle = "red"
+                        ctx.fillRect(this.tempPlayerX, this.margin, 2, this.size * 2)
+                        var attack = {
+                            x: this.tempPlayerX,
+                            y: this.margin,
+                            width: 2,
+                            height: this.size * 2
+                        }
+                        this.attacks.push(attack)
+
+                        ctx.fillRect(this.tempPlayerX + 30, this.margin, 2, this.size * 2)
+                        var attack = {
+                            x: this.tempPlayerX + 30,
+                            y: this.margin,
+                            width: 2,
+                            height: this.size * 2
+                        }
+                        this.attacks.push(attack)
+
+                        ctx.fillRect(this.tempPlayerX - 30, this.margin, 2, this.size * 2)
+                        var attack = {
+                            x: this.tempPlayerX - 30,
+                            y: this.margin,
+                            width: 2,
+                            height: this.size * 2
+                        }
+                        this.attacks.push(attack)
+                    }
+                    else{
+                        ctx.fillStyle = "red"
+                        ctx.fillRect(this.tempPlayerX - 15, this.margin, 2, this.size * 2)
+                        var attack = {
+                            x: this.tempPlayerX - 15,
+                            y: this.margin,
+                            width: 2,
+                            height: this.size * 2
+                        }
+                        this.attacks.push(attack)
+
+                        ctx.fillRect(this.tempPlayerX + 15, this.margin, 2, this.size * 2)
+                        var attack = {
+                            x: this.tempPlayerX + 15,
+                            y: this.margin,
+                            width: 2,
+                            height: this.size * 2
+                        }
+                        this.attacks.push(attack)
+
+                        ctx.fillRect(this.tempPlayerX - 45, this.margin, 2, this.size * 2)
+                        var attack = {
+                            x: this.tempPlayerX - 45,
+                            y: this.margin,
+                            width: 2,
+                            height: this.size * 2
+                        }
+                        this.attacks.push(attack)
+
+                        ctx.fillRect(this.tempPlayerX + 45, this.margin, 2, this.size * 2)
+                        var attack = {
+                            x: this.tempPlayerX + 45,
+                            y: this.margin,
+                            width: 2,
+                            height: this.size * 2
+                        }
+                        this.attacks.push(attack)
+                    }
+
+                    this.attackReset = true;
+                }
+            }
+
+            if (this.interval > 29) {
                 this.interval = 0;
                 this.attacks = []
                 let playerGameObject = GameObject.getObjectByName("PlayerComponent");
@@ -995,7 +1175,7 @@ class Attack5Component extends Component {
         this.timer = 0
         this.interval = 0
         this.attacks = []
-        this.turn = false
+        this.turn = true
         this.randomx1 = 0
         this.randomx2 = 0
         this.randomx3 = 0
@@ -1186,118 +1366,118 @@ class PlayerComponent extends Component {
         let livesGameObject = GameObject.getObjectByName("LivesGameObject")
         let livesComponent = livesGameObject.getComponent("LivesComponent")
 
-        // Hit Detection for Attack1Component -------------------------------------------------
-        let attacks1GameObject = GameObject.getObjectByName("Attack1Component");
-        let attacks1Component = attacks1GameObject.getComponent("Attack1Component");
+        // // Hit Detection for Attack1Component -------------------------------------------------
+        // let attacks1GameObject = GameObject.getObjectByName("Attack1Component");
+        // let attacks1Component = attacks1GameObject.getComponent("Attack1Component");
 
-        // Handle iFrames
-        if (this.iFrame && this.hitInterval < attacks1Component.interval) {
-            this.iFrame = false
-        }
+        // // Handle iFrames
+        // if (this.iFrame && this.hitInterval < attacks1Component.interval) {
+        //     this.iFrame = false
+        // }
 
-        // Check for hit detection
-        attacks1Component.attacks.forEach(attack => {
-            var distX = Math.abs(this.transform.x - attack.x - attack.width / 2);
-            var distY = Math.abs(this.transform.y - attack.y - attack.height / 2);
+        // // Check for hit detection
+        // attacks1Component.attacks.forEach(attack => {
+        //     var distX = Math.abs(this.transform.x - attack.x - attack.width / 2);
+        //     var distY = Math.abs(this.transform.y - attack.y - attack.height / 2);
 
-            if (distX <= (attack.width / 2) && !this.iFrame && distY <= (attack.height / 2)) {
-                livesComponent.lives--
-                this.iFrame = true
-                this.hitInterval = attacks1Component.interval + 1
-            }
-        })
+        //     if (distX <= (attack.width / 2) && !this.iFrame && distY <= (attack.height / 2)) {
+        //         livesComponent.lives--
+        //         this.iFrame = true
+        //         this.hitInterval = attacks1Component.interval + 1
+        //     }
+        // })
 
-        // Hit Detection for Attack2Component -------------------------------------------------
-        let attacks2GameObject = GameObject.getObjectByName("Attack2Component");
-        let attacks2Component = attacks2GameObject.getComponent("Attack2Component");
+        // // Hit Detection for Attack2Component -------------------------------------------------
+        // let attacks2GameObject = GameObject.getObjectByName("Attack2Component");
+        // let attacks2Component = attacks2GameObject.getComponent("Attack2Component");
 
-        // Handle iFrames
-        if (this.iFrame && this.hitInterval < attacks2Component.interval) {
-            this.iFrame = false
-        }
+        // // Handle iFrames
+        // if (this.iFrame && this.hitInterval < attacks2Component.interval) {
+        //     this.iFrame = false
+        // }
 
-        // Check for hit detection
-        attacks2Component.attacks.forEach(attack => {
-            var distX = Math.abs(this.transform.x - attack.x - attack.width / 2);
-            var distY = Math.abs(this.transform.y - attack.y - attack.height / 2);
+        // // Check for hit detection
+        // attacks2Component.attacks.forEach(attack => {
+        //     var distX = Math.abs(this.transform.x - attack.x - attack.width / 2);
+        //     var distY = Math.abs(this.transform.y - attack.y - attack.height / 2);
 
-            if (distX <= (attack.width / 2) && !this.iFrame && distY <= (attack.height / 2)) {
-                livesComponent.lives--
-                this.iFrame = true
-                this.hitInterval = attacks2Component.interval + 1
-            }
-        })
+        //     if (distX <= (attack.width / 2) && !this.iFrame && distY <= (attack.height / 2)) {
+        //         livesComponent.lives--
+        //         this.iFrame = true
+        //         this.hitInterval = attacks2Component.interval + 1
+        //     }
+        // })
 
-        // Hit Detection for Attack3Component -------------------------------------------------
-        let attacks3GameObject = GameObject.getObjectByName("Attack3Component");
-        let attacks3Component = attacks3GameObject.getComponent("Attack3Component");
+        // // Hit Detection for Attack3Component -------------------------------------------------
+        // let attacks3GameObject = GameObject.getObjectByName("Attack3Component");
+        // let attacks3Component = attacks3GameObject.getComponent("Attack3Component");
 
-        // Handle iFrames
-        if (this.iFrame && this.hitInterval < attacks3Component.interval) {
-            this.iFrame = false
-        }
+        // // Handle iFrames
+        // if (this.iFrame && this.hitInterval < attacks3Component.interval) {
+        //     this.iFrame = false
+        // }
 
-        // Check for hit detection
-        attacks3Component.attacks.forEach(attack => {
-            var distX = Math.abs(this.transform.x - attack.x - attack.width / 2);
-            var distY = Math.abs(this.transform.y - attack.y - attack.height / 2);
+        // // Check for hit detection
+        // attacks3Component.attacks.forEach(attack => {
+        //     var distX = Math.abs(this.transform.x - attack.x - attack.width / 2);
+        //     var distY = Math.abs(this.transform.y - attack.y - attack.height / 2);
 
-            if (distX <= (attack.width / 2) && !this.iFrame && distY <= (attack.height / 2)) {
-                if (attacks3Component.blue && (keysDown["ArrowRight"] || keysDown["ArrowLeft"] || keysDown["ArrowUp"] || keysDown["ArrowDown"])) {
-                    livesComponent.lives--
-                    this.iFrame = true
-                    this.hitInterval = attacks3Component.interval + 1
-                }
+        //     if (distX <= (attack.width / 2) && !this.iFrame && distY <= (attack.height / 2)) {
+        //         if (attacks3Component.blue && (keysDown["ArrowRight"] || keysDown["ArrowLeft"] || keysDown["ArrowUp"] || keysDown["ArrowDown"])) {
+        //             livesComponent.lives--
+        //             this.iFrame = true
+        //             this.hitInterval = attacks3Component.interval + 1
+        //         }
 
-                if (!attacks3Component.blue && !(keysDown["ArrowRight"] || keysDown["ArrowLeft"] || keysDown["ArrowUp"] || keysDown["ArrowDown"])) {
-                    livesComponent.lives--
-                    this.iFrame = true
-                    this.hitInterval = attacks3Component.interval + 1
-                }
-            }
-        })
+        //         if (!attacks3Component.blue && !(keysDown["ArrowRight"] || keysDown["ArrowLeft"] || keysDown["ArrowUp"] || keysDown["ArrowDown"])) {
+        //             livesComponent.lives--
+        //             this.iFrame = true
+        //             this.hitInterval = attacks3Component.interval + 1
+        //         }
+        //     }
+        // })
 
-        // Hit Detection for Attack4Component -------------------------------------------------
-        let attacks4GameObject = GameObject.getObjectByName("Attack4Component");
-        let attacks4Component = attacks4GameObject.getComponent("Attack4Component");
+        // // Hit Detection for Attack4Component -------------------------------------------------
+        // let attacks4GameObject = GameObject.getObjectByName("Attack4Component");
+        // let attacks4Component = attacks4GameObject.getComponent("Attack4Component");
 
-        // Handle iFrames
-        if (this.iFrame && this.hitInterval < attacks4Component.interval) {
-            this.iFrame = false
-        }
+        // // Handle iFrames
+        // if (this.iFrame && this.hitInterval < attacks4Component.interval) {
+        //     this.iFrame = false
+        // }
 
-        // Check for hit detection
-        attacks4Component.attacks.forEach(attack => {
-            var distX = Math.abs(this.transform.x - attack.x - attack.width / 2);
-            var distY = Math.abs(this.transform.y - attack.y - attack.height / 2);
+        // // Check for hit detection
+        // attacks4Component.attacks.forEach(attack => {
+        //     var distX = Math.abs(this.transform.x - attack.x - attack.width / 2);
+        //     var distY = Math.abs(this.transform.y - attack.y - attack.height / 2);
 
-            if (distX <= (attack.width / 2) && !this.iFrame && distY <= (attack.height / 2)) {
-                livesComponent.lives--
-                this.iFrame = true
-                this.hitInterval = attacks4Component.interval + 1
-            }
-        })
+        //     if (distX <= (attack.width / 2) && !this.iFrame && distY <= (attack.height / 2)) {
+        //         livesComponent.lives--
+        //         this.iFrame = true
+        //         this.hitInterval = attacks4Component.interval + 1
+        //     }
+        // })
 
-        // Hit Detection for Attack5Component -------------------------------------------------
-        let attacks5GameObject = GameObject.getObjectByName("Attack5Component");
-        let attacks5Component = attacks5GameObject.getComponent("Attack5Component");
+        // // Hit Detection for Attack5Component -------------------------------------------------
+        // let attacks5GameObject = GameObject.getObjectByName("Attack5Component");
+        // let attacks5Component = attacks5GameObject.getComponent("Attack5Component");
 
-        // Handle iFrames
-        if (this.iFrame && this.hitInterval < attacks5Component.interval) {
-            this.iFrame = false
-        }
+        // // Handle iFrames
+        // if (this.iFrame && this.hitInterval < attacks5Component.interval) {
+        //     this.iFrame = false
+        // }
 
-        // Check for hit detection
-        attacks5Component.attacks.forEach(attack => {
-            var distX = Math.abs(this.transform.x - attack.x - attack.width / 2);
-            var distY = Math.abs(this.transform.y - attack.y - attack.height / 2);
+        // // Check for hit detection
+        // attacks5Component.attacks.forEach(attack => {
+        //     var distX = Math.abs(this.transform.x - attack.x - attack.width / 2);
+        //     var distY = Math.abs(this.transform.y - attack.y - attack.height / 2);
 
-            if (distX <= (attack.width / 2) && !this.iFrame && distY <= (attack.height / 2)) {
-                livesComponent.lives--
-                this.iFrame = true
-                this.hitInterval = attacks5Component.interval + 1
-            }
-        })
+        //     if (distX <= (attack.width / 2) && !this.iFrame && distY <= (attack.height / 2)) {
+        //         livesComponent.lives--
+        //         this.iFrame = true
+        //         this.hitInterval = attacks5Component.interval + 1
+        //     }
+        // })
     }
 }
 
@@ -1372,12 +1552,12 @@ class MainScene extends Scene {
     }
     start() {
         // Attacks Code
-        this.addGameObject(new GameObject("Attack1Component").addComponent(new Attack1Component()))
-        this.addGameObject(new GameObject("Attack2Component").addComponent(new Attack2Component()))
-        this.addGameObject(new GameObject("Attack3Component").addComponent(new Attack3Component()))
+        // this.addGameObject(new GameObject("Attack1Component").addComponent(new Attack1Component()))
+        // this.addGameObject(new GameObject("Attack2Component").addComponent(new Attack2Component()))
+        // this.addGameObject(new GameObject("Attack3Component").addComponent(new Attack3Component()))
         this.addGameObject(new GameObject("Attack4Component").addComponent(new Attack4Component()))
-        this.addGameObject(new GameObject("Attack5Component").addComponent(new Attack5Component()))
-        this.addGameObject(new GameObject("AttacksController").addComponent(new AttacksController()))
+        // this.addGameObject(new GameObject("Attack5Component").addComponent(new Attack5Component()))
+        // this.addGameObject(new GameObject("AttacksController").addComponent(new AttacksController()))
 
         // Player code
         let playerComponent = new GameObject("PlayerComponent")
