@@ -103,16 +103,13 @@ class Attack1Component extends Component {
         this.attacks = []
         this.turn = false
     }
-    update() {
+    draw(ctx) {
         if (this.turn) {
+            // Timer 
             this.timer++
             if (this.timer % 12 == 0) {
                 this.interval++
             }
-        }
-    }
-    draw(ctx) {
-        if (this.turn) {
             // Phase 1 Attack
             // Warning Attack
             if (this.interval == 3) {
@@ -282,16 +279,14 @@ class Attack2Component extends Component {
         this.interval = 0;
         this.turn = false;
     }
-    update() {
+    draw(ctx) {
         if (this.turn) {
+            // Timer 
             this.timer++
             if (this.timer % 12 == 0) {
                 this.interval++
             }
-        }
-    }
-    draw(ctx) {
-        if (this.turn) {
+
             // Phase 1 Attack
             // Warning Attack
             if (this.interval == 3) {
@@ -550,16 +545,13 @@ class Attack3Component extends Component {
         this.attackNumber = 0
         this.number = 0
     }
-    update() {
-        if (this.turn) {
-            this.timer++
-            if (this.timer % 12 == 0) {
-                this.interval++;
-            }
-        }
-    }
     draw(ctx) {
         if (this.turn) {
+            // Timer 
+            this.timer++
+            if (this.timer % 12 == 0) {
+                this.interval++
+            }
             // Phase 1 Attack
             // Warning
             if (this.interval == 3) {
@@ -989,18 +981,14 @@ class Attack4Component extends Component {
         this.attackReset = true
         this.randomIndex
     }
-    
-    update() {
+    draw(ctx) {
         if (this.turn) {
+            // Timer 
             this.timer++
             if (this.timer % 12 == 0) {
                 this.interval++
             }
-        }
-    }
 
-    draw(ctx) {
-        if (this.turn) {
             let playerGameObject = GameObject.getObjectByName("PlayerComponent")
             let playerComponent = playerGameObject.getComponent("PlayerComponent")
             let playerX = playerComponent.transform.x
@@ -1104,7 +1092,7 @@ class Attack4Component extends Component {
                         }
                         this.attacks.push(attack)
                     }
-                    else{
+                    else {
                         ctx.fillStyle = "red"
                         ctx.fillRect(this.tempPlayerX - 15, this.margin, 2, this.size * 2)
                         var attack = {
@@ -1189,16 +1177,14 @@ class Attack5Component extends Component {
         this.randomy5 = 0
         this.attackReset = true
     }
-    update() {
-        if (this.turn) {
-            this.timer++
-            if (this.timer % 15 == 0) {
-                this.interval++
-            }
-        }
-    }
     draw(ctx) {
         if (this.turn) {
+            // Timer 
+            this.timer++
+            if (this.timer % 12 == 0) {
+                this.interval++
+            }
+            
             if (this.interval >= 3 && this.interval <= 12) {
                 // Warning Attack
                 if (this.interval % 2 == 1) {
