@@ -85,6 +85,7 @@ class WallsComponent extends Component {
         this.size = 200
     }
     draw(ctx) {
+        this.layer = 0
         ctx.strokeStyle = "black"
         ctx.beginPath()
         ctx.moveTo(this.margin, this.margin)
@@ -124,6 +125,7 @@ class Attack1Component extends Component {
         this.turn = false
     }
     draw(ctx) {
+        this.layer = -1
         if (this.turn) {
             // Timer 
             this.timer += 0.5
@@ -300,6 +302,7 @@ class Attack2Component extends Component {
         this.turn = false;
     }
     draw(ctx) {
+        this.layer = -1
         if (this.turn) {
             // Timer 
             this.timer += 0.5
@@ -566,6 +569,7 @@ class Attack3Component extends Component {
         this.number = 0
     }
     draw(ctx) {
+        this.layer = -1
         if (this.turn) {
             // Timer 
             this.timer += 0.5
@@ -1002,6 +1006,7 @@ class Attack4Component extends Component {
         this.randomIndex
     }
     draw(ctx) {
+        this.layer = -1
         if (this.turn) {
             // Timer 
             this.timer += 0.5
@@ -1198,6 +1203,7 @@ class Attack5Component extends Component {
         this.attackReset = true
     }
     draw(ctx) {
+        this.layer = -1
         if (this.turn) {
             // Timer 
             this.timer += 0.5
@@ -1341,6 +1347,7 @@ class PlayerComponent extends Component {
         this.hitInterval = 0;
     }
     update() {
+        this.layer = 0
         //Update the player based on input
         if (keysDown["ArrowLeft"]) {
             this.transform.x -= 2
