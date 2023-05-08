@@ -3,7 +3,7 @@ import "/engine/engine.js"
 //Start
 
 class Global {
-    lives = 3
+    lives = 5
 }
 
 class StartController extends Component {
@@ -12,7 +12,7 @@ class StartController extends Component {
         this.maxFreezeTime = 1
     }
     update() {
-        this.freezeTime += 25 / 1000
+        this.freezeTime += Time.deltaTime
         if (keysDown[" "] && this.freezeTime >= this.maxFreezeTime) {
             SceneManager.changeScene(1)
         }
@@ -38,6 +38,16 @@ class StartControllerGameObject extends GameObject {
 
 }
 
+class StartCameraComponent extends Component {
+    start() {
+
+    }
+    update() {
+        this.parent.transform.x = 400;
+        this.parent.transform.y = 250;
+    }
+}
+
 class StartDrawGameObject extends GameObject {
     start() {
         this.addComponent(new StartDrawComponent());
@@ -52,12 +62,22 @@ class StartScene extends Scene {
     start() {
         this.addGameObject(new StartControllerGameObject())
         this.addGameObject(new StartDrawGameObject())
+        Camera.main.parent.addComponent(new StartCameraComponent());
     }
 }
 
 //-----------------------------------------------------
 //Main
 
+class MainCameraComponent extends Component{
+    start(){
+
+    }
+    update(){
+        this.transform.x = 200
+        this.transform.y = 200
+    }
+}
 class WallsComponent extends Component {
     name = "WallsComponent"
     start() {
@@ -79,7 +99,7 @@ class WallsComponent extends Component {
 class LivesComponent extends Component {
     name = "LivesComponent"
     start() {
-        this.lives = 3
+        this.lives = 5
     }
     update() {
         this.parent.getComponent("Text").string = "Lives: " + this.lives
@@ -106,8 +126,8 @@ class Attack1Component extends Component {
     draw(ctx) {
         if (this.turn) {
             // Timer 
-            this.timer++
-            if (this.timer % 12 == 0) {
+            this.timer += 0.5
+            if (this.timer % 15 == 0) {
                 this.interval++
             }
             // Phase 1 Attack
@@ -282,8 +302,8 @@ class Attack2Component extends Component {
     draw(ctx) {
         if (this.turn) {
             // Timer 
-            this.timer++
-            if (this.timer % 12 == 0) {
+            this.timer += 0.5
+            if (this.timer % 15 == 0) {
                 this.interval++
             }
 
@@ -548,8 +568,8 @@ class Attack3Component extends Component {
     draw(ctx) {
         if (this.turn) {
             // Timer 
-            this.timer++
-            if (this.timer % 12 == 0) {
+            this.timer += 0.5
+            if (this.timer % 15 == 0) {
                 this.interval++
             }
             // Phase 1 Attack
@@ -984,8 +1004,8 @@ class Attack4Component extends Component {
     draw(ctx) {
         if (this.turn) {
             // Timer 
-            this.timer++
-            if (this.timer % 12 == 0) {
+            this.timer += 0.5
+            if (this.timer % 15 == 0) {
                 this.interval++
             }
 
@@ -1180,8 +1200,8 @@ class Attack5Component extends Component {
     draw(ctx) {
         if (this.turn) {
             // Timer 
-            this.timer++
-            if (this.timer % 12 == 0) {
+            this.timer += 0.5
+            if (this.timer % 15 == 0) {
                 this.interval++
             }
             
@@ -1323,16 +1343,16 @@ class PlayerComponent extends Component {
     update() {
         //Update the player based on input
         if (keysDown["ArrowLeft"]) {
-            this.transform.x -= 3
+            this.transform.x -= 2
         }
         if (keysDown["ArrowRight"]) {
-            this.transform.x += 3
+            this.transform.x += 2
         }
         if (keysDown["ArrowUp"]) {
-            this.transform.y -= 3
+            this.transform.y -= 2
         }
         if (keysDown["ArrowDown"]) {
-            this.transform.y += 3
+            this.transform.y += 2
         }
 
         // Constrict Movement
@@ -1549,11 +1569,12 @@ class MainScene extends Scene {
         // Player code
         let playerComponent = new GameObject("PlayerComponent")
         playerComponent.addComponent(new PlayerComponent())
+
         let circle = new Circle()
         playerComponent.addComponent(circle)
         circle.fillStyle = "black"
-        circle.radius = 5
-        this.addGameObject(playerComponent)
+        circle.transform.sx = 5
+        GameObject.instantiate(playerComponent)
 
         // Walls Code
         this.addGameObject(new GameObject("WallsGameObject").addComponent(new WallsComponent()))
@@ -1564,6 +1585,9 @@ class MainScene extends Scene {
                 .addComponent(new LivesComponent())
                 .addComponent(new Text("Lives: 3", "black")),
             new Vector2(50, 45))
+
+        // Camera
+        Camera.main.parent.addComponent(new MainCameraComponent());
     }
 }
 
@@ -1586,8 +1610,8 @@ class DeadScene extends Scene {
     }
     start() {
         this.addGameObject(new GameObject().addComponent(new DeadController()))
-        this.addGameObject(new GameObject().addComponent(new Text("You Died", "red")), new Vector2(100, 100))
-        this.addGameObject(new GameObject().addComponent(new Text("Press spacebar to try again", "red")), new Vector2(100, 150))
+        this.addGameObject(new GameObject().addComponent(new Text("You Died", "red")), new Vector2(-150, -100))
+        this.addGameObject(new GameObject().addComponent(new Text("Press spacebar to try again", "red")), new Vector2(-150, -50))
     }
 }
 
@@ -1605,9 +1629,9 @@ class EndScene extends Scene {
     }
     start() {
         this.addGameObject(new GameObject().addComponent(new EndController()))
-        this.addGameObject(new GameObject().addComponent(new Text("Congratulations! You have beat the game", "white")), new Vector2(100, 100))
-        this.addGameObject(new GameObject().addComponent(new Text("Press spacebar to go back to the start menu", "white")), new Vector2(100, 150))
-        this.addGameObject(new GameObject().addComponent(new Text("You lived with: " + Global.lives + " lives!", "white")), new Vector2(100, 200))
+        this.addGameObject(new GameObject().addComponent(new Text("Congratulations! You have beat the game", "white")), new Vector2(-150, -100))
+        this.addGameObject(new GameObject().addComponent(new Text("Press spacebar to go back to the start menu", "white")), new Vector2(-150, -50))
+        this.addGameObject(new GameObject().addComponent(new Text("You lived with: " + Global.lives + " lives!", "white")), new Vector2(-150, 0))
     }
 }
 

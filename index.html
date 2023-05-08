@@ -11,8 +11,9 @@
     <script type="module">
         import "/engine/engine.js"
         import "./game.js"
-        SceneManager.startScenes(allScenes, "Game")
+        SceneManager.setScenes(allScenes)
+        start("Dodge!", {aspectRatio: 1, logicalWidth: 800, letterboxColor: "gray" })
     </script>
 </body>
 
-</html> 
+</html>
