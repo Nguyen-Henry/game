@@ -69,11 +69,11 @@ class StartScene extends Scene {
 //-----------------------------------------------------
 //Main
 
-class MainCameraComponent extends Component{
-    start(){
+class MainCameraComponent extends Component {
+    start() {
 
     }
-    update(){
+    update() {
         this.transform.x = 200
         this.transform.y = 200
     }
@@ -103,7 +103,7 @@ class LivesComponent extends Component {
         this.lives = 5
     }
     update() {
-        this.parent.getComponent("Text").string = "Lives: " + this.lives
+        this.parent.getComponent("GUIText").string = "Lives: " + this.lives
         if (this.lives == 0) {
             SceneManager.changeScene(2)
         }
@@ -1210,7 +1210,7 @@ class Attack5Component extends Component {
             if (this.timer % 15 == 0) {
                 this.interval++
             }
-            
+
             if (this.interval >= 3 && this.interval <= 12) {
                 // Warning Attack
                 if (this.interval % 2 == 1) {
@@ -1590,8 +1590,8 @@ class MainScene extends Scene {
         this.addGameObject(
             new GameObject("LivesGameObject")
                 .addComponent(new LivesComponent())
-                .addComponent(new Text("Lives: 3", "black")),
-            new Vector2(50, 45))
+                .addComponent(new GUIText("Lives: 3", "black")),
+            new Vector2(250, 245))
 
         // Camera
         Camera.main.parent.addComponent(new MainCameraComponent());
